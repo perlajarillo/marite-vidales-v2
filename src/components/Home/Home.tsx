@@ -1,10 +1,16 @@
 import React from "react";
+import styles from "./Home.module.css";
+import intl from "../../locales/en.json";
+
 const Home: React.FC = () => {
-  /*TODO: Add here the content of the Home component. This is only a placeholder.*/
   return (
-    <div className="bg-[url(home-background.jpg)] w-full h-screen overflow-hidden bg-cover bg-center">
+    <div className={styles.homeContainer}>
+      <div className={styles.openingLine}>
+        <p className={styles.homeArtSummary}>{intl.openingLine}</p>
+      </div>
+      <div className={styles.homeCollage}></div>
     </div>
-);
+  );
 };
 
 export default Home;

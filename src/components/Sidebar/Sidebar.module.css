@@ -1,0 +1,46 @@
+@reference "tailwindcss";
+
+@layer components {
+  .sidebar {
+    @apply lg:flex fixed left-0 top-0 h-full max-w-56 flex-col border-r border-stone-200 bg-white p-8 z-40 text-[#424242];
+  }
+
+  .sidebarHeader {
+    @apply mb-12;
+  }
+
+  .sidebarTitle {
+    @apply text-2xl leading-tight font-medium;
+  }
+
+  .sidebarSubtitle {
+    @apply text-xs uppercase tracking-widest text-stone-400 mt-2;
+  }
+
+  .sidebarNav {
+    @apply flex flex-col gap-6 p-4;
+  }
+
+  .sidebarLink {
+    @apply relative p-2 text-sm font-medium tracking-widest pb-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:bg-mist-700 after:transition-transform after:duration-300 hover:after:scale-x-100 uppercase;
+  }
+
+  .sidebarFooter {
+    @apply mt-auto pt-8 border-t border-stone-100 text-[10px] text-stone-400 leading-relaxed;
+  }
+
+  .sidebarSocial {
+    @apply flex mt-4 md:justify-end items-center gap-6 pr-10;
+  }
+
+  .sidebarSocialLink {
+    @apply inline-flex items-center justify-center text-gray-600 transition-all duration-300 bg-white rounded-full shadow-md hover:bg-gray-600 hover:text-white hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+  }
+
+  .sidebarInstagramIcon {
+    @apply w-5 h-5;
+  }
+  .sidebarIcon {
+    @apply w-5.5 h-5.5;
+  }
+}

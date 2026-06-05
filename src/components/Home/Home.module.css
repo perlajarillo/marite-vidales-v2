@@ -2,18 +2,14 @@
 
 @layer components {
   .homeContainer {
-    @apply flex flex-col h-full w-full pt-2 pb-8 items-center text-center justify-center;
-  }
-
-  .homeOpenLine {
-    @apply max-w-4xl p-4;
+    @apply flex flex-col h-screen w-full pt-2 pb-8 items-center text-center justify-center;
   }
 
   .homeArtSummary {
-    @apply text-3xl lg:text-xl text-stone-600 max-w-2xl leading-relaxed mb-5;
+    @apply lg:text-xl text-stone-600 max-w-2xl leading-relaxed mb-5 mt-4;
   }
   .homeCollage {
-    @apply w-full h-125 overflow-hidden bg-auto md:bg-contain bg-center bg-no-repeat;
+    @apply w-full h-screen bg-contain lg:bg-center bg-no-repeat p-25;
     background-image: url("/home-background.jpg");
   }
 }

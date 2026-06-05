@@ -2,15 +2,15 @@
 
 @layer components {
   .sidebar {
-    @apply lg:flex fixed left-0 top-0 h-full max-w-56 flex-col border-r border-stone-200 bg-white p-8 z-40 text-[#424242];
+    @apply flex fixed left-0 top-0 w-full lg:h-full shadow-md lg:max-w-52 flex-col border-r border-stone-200 bg-white p-6 z-40 text-[#424242] pb-3 md:pb-6;
   }
 
   .sidebarHeader {
-    @apply mb-12;
+    @apply lg:mb-10;
   }
 
   .sidebarTitle {
-    @apply text-2xl leading-tight font-medium;
+    @apply text-2xl leading-tight font-medium text-center;
   }
 
   .sidebarSubtitle {
@@ -18,19 +18,23 @@
   }
 
   .sidebarNav {
-    @apply flex flex-col gap-6 p-4;
+    @apply flex lg:flex-col lg:gap-6 lg:p-2 flex-wrap justify-center;
   }
 
   .sidebarLink {
-    @apply relative p-2 text-sm font-medium tracking-widest pb-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:bg-mist-700 after:transition-transform after:duration-300 hover:after:scale-x-100 uppercase;
+    @apply relative p-2 text-sm lg:font-medium tracking-widest pb-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:bg-mist-700 after:transition-transform after:duration-300 hover:after:scale-x-100 uppercase;
   }
 
   .sidebarFooter {
-    @apply mt-auto pt-8 border-t border-stone-100 text-[10px] text-stone-400 leading-relaxed;
+    @apply flex flex-row lg:flex-col lg:mt-auto justify-evenly gap-4 pt-2 lg:pt-8 border-t border-stone-100 text-[10px] text-stone-400 leading-relaxed;
+  }
+
+  .sidebarCopyright {
+    @apply content-center;
   }
 
   .sidebarSocial {
-    @apply flex mt-4 md:justify-end items-center gap-6 pr-10;
+    @apply flex mt-4 justify-center lg:justify-end items-center gap-6 lg:pr-10;
   }
 
   .sidebarSocialLink {
@@ -38,9 +42,9 @@
   }
 
   .sidebarInstagramIcon {
-    @apply w-5 h-5;
+    @apply w-4 h-4;
   }
   .sidebarIcon {
-    @apply w-5.5 h-5.5;
+    @apply w-4.5 h-4.5;
   }
 }

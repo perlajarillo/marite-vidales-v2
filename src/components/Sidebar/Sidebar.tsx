@@ -17,7 +17,6 @@ const Sidebar: React.FC = () => {
     <aside className={styles.sidebar}>
       <div className={styles.sidebarHeader}>
         <h2 className={styles.sidebarTitle}>{intl.siteTitle}</h2>
-        <p className={styles.sidebarSubtitle}>{intl.visualArtist}</p>
       </div>
       <nav className={styles.sidebarNav}>
         <NavLink to="/" className={styles.sidebarLink}>
@@ -37,7 +36,7 @@ const Sidebar: React.FC = () => {
         </NavLink>
       </nav>
       <div className={styles.sidebarFooter}>
-        <p>
+        <p className={styles.sidebarCopyright}>
           {intl.copyright} {year} {intl.paintingsOf}, {intl.location}
         </p>
         <div className={styles.sidebarSocial}>

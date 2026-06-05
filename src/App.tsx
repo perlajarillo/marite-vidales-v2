@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Sidebar />
-      <main className="lg:ml-64 min-h-screen pt-20 lg:pt-0">
+      <main className="lg:ml-54 mt-37 lg:mt-0 min-h-screen lg:pt-0  p-5">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={"Test"} />

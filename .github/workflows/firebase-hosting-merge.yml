@@ -1,0 +1,33 @@
+name: Deploy to Firebase
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install and Build
+        run: npm ci && npm run build
+
+      # DEV PIPELINE: Pushing to the dev branch deploys to your Sandbox
+      - name: Deploy to Firebase Dev
+        if: github.ref == 'refs/heads/dev'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MARITE_VIDALES_DEV }}
+          projectId: marite-vidales-dev
+
+      # PROD PIPELINE: Merging to main builds against Production credentials
+      - name: Deploy to Firebase Production
+        if: github.ref == 'refs/heads/main'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MARITE_VIDALES_PROD }}
+          projectId: marite-vidales-prod

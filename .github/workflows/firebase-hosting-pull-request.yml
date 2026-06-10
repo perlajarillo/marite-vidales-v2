@@ -1,0 +1,35 @@
+name: Deploy to Firebase Hosting PR Previews
+on: pull_request
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  build_and_preview:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install and Build
+        run: npm ci && npm run build
+
+      # If PR is targeting the dev branch, spin up a preview on the DEV project
+      - name: Deploy Preview to Dev Project
+        if: github.base_ref == 'dev'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MARITE_VIDALES_DEV }}
+          projectId: marite-vidales-dev
+
+      # If PR is targeting the main branch, spin up a preview on the PROD project
+      - name: Deploy Preview to Production Project
+        if: github.base_ref == 'main'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MARITE_VIDALES_PROD }}
+          projectId: marite-vidales-prod

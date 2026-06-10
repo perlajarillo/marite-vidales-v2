@@ -1,0 +1,50 @@
+@reference "tailwindcss";
+
+@layer components {
+  .sidebar {
+    @apply flex fixed left-0 top-0 w-full lg:h-full shadow-md lg:max-w-52 flex-col border-r border-stone-200 bg-white p-6 z-40 text-[#424242] pb-3 md:pb-6;
+  }
+
+  .sidebarHeader {
+    @apply lg:mb-10;
+  }
+
+  .sidebarTitle {
+    @apply text-2xl leading-tight font-medium text-center;
+  }
+
+  .sidebarSubtitle {
+    @apply text-xs uppercase tracking-widest text-stone-400 mt-2;
+  }
+
+  .sidebarNav {
+    @apply flex lg:flex-col lg:gap-6 lg:p-2 flex-wrap justify-center;
+  }
+
+  .sidebarLink {
+    @apply relative p-2 text-sm lg:font-medium tracking-widest pb-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:bg-mist-700 after:transition-transform after:duration-300 hover:after:scale-x-100 uppercase;
+  }
+
+  .sidebarFooter {
+    @apply flex flex-row lg:flex-col lg:mt-auto justify-evenly gap-4 pt-2 lg:pt-8 border-t border-stone-100 text-[10px] text-stone-400 leading-relaxed;
+  }
+
+  .sidebarCopyright {
+    @apply content-center;
+  }
+
+  .sidebarSocial {
+    @apply flex mt-4 justify-center lg:justify-end items-center gap-6 lg:pr-10;
+  }
+
+  .sidebarSocialLink {
+    @apply inline-flex items-center justify-center text-gray-600 transition-all duration-300 bg-white rounded-full shadow-md hover:bg-gray-600 hover:text-white hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+  }
+
+  .sidebarInstagramIcon {
+    @apply w-4 h-4;
+  }
+  .sidebarIcon {
+    @apply w-4.5 h-4.5;
+  }
+}

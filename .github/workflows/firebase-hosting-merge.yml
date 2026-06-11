@@ -22,6 +22,7 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MARITE_VIDALES_DEV }}
           projectId: marite-vidales-dev
+          channelId: live
 
       # PROD PIPELINE: Merging to main builds against Production credentials
       - name: Deploy to Firebase Production
@@ -31,3 +32,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MARITE_VIDALES_PROD }}
           projectId: marite-vidales-prod
+          channelId: live

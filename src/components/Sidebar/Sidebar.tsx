@@ -53,10 +53,10 @@ const Sidebar: React.FC = () => {
               className={styles.sidebarIcon}
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
+              strokeWidth="2"
               viewBox="0 0 24 24"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" d={email} />
+              <path strokeLinecap="round" strokeLinejoin="round" d={email} />
             </svg>
           </a>
           <a

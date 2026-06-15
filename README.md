@@ -72,8 +72,29 @@ npm run dev
 
 Open the local URL printed in the terminal, typically `http://localhost:5173`.
 
+Please see bellow section to fully set your development environment up.
+
+## 🛠️ Local Development Setup
+
+This project utilizes isolated environment sandboxes to separate development changes from production data. Local operations naturally point to a secure development database target.
+
+### Prerequisites
+
+To run this application locally, you must provision a local environment configuration file:
+
+1. Locate the `.env.example` file in the root directory.
+2. Duplicate the file and rename the new copy to `.env.development`.
+3. Replace the placeholder values with your specific Firebase Development project web client configuration credentials.
+
+> ⚠️ **Security Warning:** Never commit real `.env` configuration files containing active API key strings to version control. The `.env.development` and `.env.production` paths are globally ignored via `.gitignore`.
+
+### Available Scripts
+
+Once your environment variables are configured, execute the local server using available scripts.
+
 ## 💪 Available scripts
 
+- `npm install` - install package dependencies
 - `npm run dev` — run the Vite development server
 - `npm run build` — build the production bundle (`tsc -b && vite build`)
 - `npm run lint` — run ESLint across the project

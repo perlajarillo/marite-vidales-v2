@@ -11,8 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install and Build
-        run: npm ci && npm run build
+      - name: Install Dependencies
+        run: npm ci
+
+        # DEV BRANCH ONLY BUILD: Compiles using your .env.development setup
+      - name: Build Dev
+        if: github.ref == 'refs/heads/dev'
+        run: npm run build:dev
+
+        # MAIN BRANCH ONLY BUILD: Compiles standard production layout
+      - name: Build Production
+        if: github.ref == 'refs/heads/main'
+        run: npm run build
 
       # DEV PIPELINE: Pushing to the dev branch deploys to your Sandbox
       - name: Deploy to Firebase Dev

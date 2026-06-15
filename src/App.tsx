@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./components/Home/Home";
 import { Routes, Route } from "react-router";
 import UnderConstruction from "./components/UnderConstruction/UnderConstruction";
+import "./services/firebase"; // Ensure Firebase is initialized
 
 function App() {
   return (

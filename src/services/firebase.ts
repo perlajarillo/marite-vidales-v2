@@ -16,10 +16,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Add this temporary check at the bottom of your config file
-console.log(
+/* console.log(
   "🔥 Connected Firebase Project ID:",
   import.meta.env.VITE_FIREBASE_PROJECT_ID,
-);
+); */
 
 export const db = getFirestore(app);
 export const storage = getStorage(app);

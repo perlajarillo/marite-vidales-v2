@@ -23,7 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 # Environment variables
-*.env.*
+.env.development
+.env.production
 # Hide Firebase Agent Skills documentation from Git
 .agents/
 # Hide Firebase Agent Skills lockfile

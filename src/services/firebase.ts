@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
 //TODO: import { getAuth } from "firebase/auth";
 
@@ -15,12 +15,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-// Add this temporary check at the bottom of your config file
+// Temporary check to ensure Firebase is initialized correctly
 /* console.log(
   "🔥 Connected Firebase Project ID:",
   import.meta.env.VITE_FIREBASE_PROJECT_ID,
 ); */
 
-export const db = getFirestore(app);
+export const db = getDatabase(app);
 export const storage = getStorage(app);
 //TODO: export const auth = getAuth(app);

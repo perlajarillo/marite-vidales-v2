@@ -28,7 +28,7 @@ const Sidebar: React.FC = () => {
         <NavLink to="/under-construction" className={styles.sidebarLink}>
           {intl.exhibits}
         </NavLink>
-        <NavLink to="/under-construction" className={styles.sidebarLink}>
+        <NavLink to="/biography" className={styles.sidebarLink}>
           {intl.biography}
         </NavLink>
         <NavLink to="/under-construction" className={styles.sidebarLink}>

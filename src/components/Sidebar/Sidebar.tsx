@@ -2,8 +2,11 @@ import { NavLink } from "react-router";
 //TODO: import { useTranslation } from "react-i18next";
 import intl from "../../locales/en.json";
 import styles from "./Sidebar.module.css";
+import { useState } from "react";
 
 const Sidebar: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const year = new Date().getFullYear();
 
   const instagram =
@@ -13,30 +16,34 @@ const Sidebar: React.FC = () => {
   const email =
     "M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75";
 
+  const tabsData = [
+    { label: intl.home, to: "/" },
+    { label: intl.artwork, to: "/under-construction" },
+    { label: intl.exhibits, to: "/under-construction" },
+    { label: intl.biography, to: "/biography" },
+    { label: intl.reviews, to: "/under-construction" },
+    { label: intl.contact, to: "/under-construction" },
+  ];
   return (
     <aside className={styles.sidebar}>
       <div className={styles.sidebarHeader}>
         <h2 className={styles.sidebarTitle}>{intl.siteTitle}</h2>
       </div>
       <nav className={styles.sidebarNav}>
-        <NavLink to="/" className={styles.sidebarLink}>
-          {intl.home}
-        </NavLink>
-        <NavLink to="/under-construction" className={styles.sidebarLink}>
-          {intl.artwork}
-        </NavLink>
-        <NavLink to="/under-construction" className={styles.sidebarLink}>
-          {intl.exhibits}
-        </NavLink>
-        <NavLink to="/biography" className={styles.sidebarLink}>
-          {intl.biography}
-        </NavLink>
-        <NavLink to="/under-construction" className={styles.sidebarLink}>
-          {intl.reviews}
-        </NavLink>
-        <NavLink to="/under-construction" className={styles.sidebarLink}>
-          {intl.contact}
-        </NavLink>
+        {tabsData.map((tab, index) => (
+          <NavLink
+            key={tab.to}
+            to={tab.to}
+            className={
+              activeIndex === index
+                ? `${styles.sidebarLinkActive} ${styles.sidebarLink}`
+                : styles.sidebarLink
+            }
+            onClick={() => setActiveIndex(index)}
+          >
+            {tab.label}
+          </NavLink>
+        ))}
       </nav>
       <div className={styles.sidebarFooter}>
         <p className={styles.sidebarCopyright}>

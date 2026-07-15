@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router";
 import UnderConstruction from "./components/UnderConstruction/UnderConstruction";
 import "./services/firebase"; // Ensure Firebase is initialized
 import Biography from "./components/Biography/Biography.tsx";
+import Series from "./components/Series/Series";
 
 const App: React.FC = () => {
   return (
@@ -15,10 +16,11 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/biography" element={<Biography />} />
           <Route path="/under-construction" element={<UnderConstruction />} />
+          <Route path="/series" element={<Series />} />
         </Routes>
       </main>
     </>
   );
-}
+};
 
 export default App;

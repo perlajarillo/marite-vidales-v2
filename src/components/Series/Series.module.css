@@ -1,0 +1,43 @@
+@reference "tailwindcss";
+
+@layer components {
+  .seriesGrid {
+    @apply grid grid-cols-1 gap-6 md:grid-cols-2 pt-8;
+  }
+  .seriesCard {
+    @apply flex flex-col overflow-hidden bg-[#fbfbfa] border border-gray-100/70 p-3 rounded-none;
+  }
+  .seriesCoverContainer {
+    @apply aspect-4/3 w-full overflow-hidden bg-gray-50;
+  }
+  .seriesCover {
+    @apply h-full w-full object-cover transition-transform duration-700 ease-out sm:group-hover:scale-102;
+  }
+
+  .seriesInformationContainer {
+    @apply flex flex-col pt-4 pb-2 px-1 grow;
+  }
+
+  .seriesName {
+    @apply text-xl  text-[#424242] tracking-wide font-medium;
+  }
+
+  .seriesDescription {
+    @apply mt-2 text-sm text-[#424242] leading-relaxed line-clamp-3 grow font-sans;
+  }
+
+  .seriesActionBar {
+    @apply mt-5 pt-2;
+  }
+
+  .seriesViewButton {
+    @apply flex items-center text-xs uppercase tracking-[0.2em] text-[#424242] font-semibold;
+  }
+
+  .seriesViewButton span:first-child {
+    @apply border-b border-[#424242] pb-1;
+  }
+  .seriesActionBar button span:last-child {
+    @apply ml-1.5 text-sm;
+  }
+}

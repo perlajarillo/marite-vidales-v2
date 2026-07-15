@@ -18,7 +18,7 @@ const Sidebar: React.FC = () => {
 
   const tabsData = [
     { label: intl.home, to: "/" },
-    { label: intl.artwork, to: "/under-construction" },
+    { label: intl.artwork, to: "/series" },
     { label: intl.exhibits, to: "/under-construction" },
     { label: intl.biography, to: "/biography" },
     { label: intl.reviews, to: "/under-construction" },
@@ -32,7 +32,7 @@ const Sidebar: React.FC = () => {
       <nav className={styles.sidebarNav}>
         {tabsData.map((tab, index) => (
           <NavLink
-            key={tab.to}
+            key={index}
             to={tab.to}
             className={
               activeIndex === index

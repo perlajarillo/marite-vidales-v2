@@ -19,5 +19,9 @@
   "education": "Education",
   "noExhibitsAdded": "No exhibits have been added yet!",
   "professionalExperience": "Professional Experience",
-  "noProfessionalExperienceAdded": "No professional experience has been added yet!"
+  "noProfessionalExperienceAdded": "No professional experience has been added yet!",
+  "noSeriesDataAvailable": "No series data available.",
+  "untitled": "Untitled",
+  "noDescriptionAvailable": "No description available.",
+  "viewSeries": "View Series"
 }

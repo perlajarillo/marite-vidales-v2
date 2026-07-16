@@ -1,4 +1,3 @@
-import { useState } from "react";
 import intl from "../../locales/en.json";
 import styles from "./Biography.module.css";
 import BiographySectionList from "./BiographySectionList";
@@ -7,7 +6,6 @@ import useBiography from "../../hooks/useBiography";
 
 const BiographyPage: React.FC = () => {
   const { data, loading } = useBiography();
-  const [photoLoading, setPhotoLoading] = useState(true);
 
   if (loading) return <BiographySkeleton />;
   if (!data && !loading) return <p>{intl.noDataAvailable}</p>;
@@ -15,14 +13,13 @@ const BiographyPage: React.FC = () => {
   return (
     <div className={styles.biographyContainer}>
       <section className={styles.summaryContainer}>
-        {photoLoading && <div className={styles.photoSkeleton} />}
-        <img
-          src={data?.pictureUrl}
-          alt="Marite Vidales"
-          className={styles.photoContainer}
-          onLoad={() => setPhotoLoading(false)}
-          onError={() => setPhotoLoading(false)}
-        />
+        <div className={styles.photoContainer}>
+          <img
+            src={data?.pictureUrl}
+            alt="Marite Vidales"
+            className={styles.photo}
+          />
+        </div>
         <p className={styles.summaryText}>{data?.summary}</p>
       </section>
       <BiographySectionList

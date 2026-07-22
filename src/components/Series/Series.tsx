@@ -19,8 +19,7 @@ const Series = () => {
           .map(([key, series]) => (
             <SeriesCard
               key={key}
-              name={series.name}
-              description={series.description}
+              series={series}
               imageUrl={
                 series.images_details.length > 0
                   ? series.images_details[series.cover].url

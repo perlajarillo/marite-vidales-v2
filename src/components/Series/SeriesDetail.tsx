@@ -1,29 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useLocation } from "react-router";
 import type { ImageDetail } from "../../types/series";
 import styles from "./Series.module.css";
 
-const getResponsivePaintings = (
-  paintings: ImageDetail[],
-  viewportWidth: number,
-) => {
-  const columns = viewportWidth < 640 ? 1 : viewportWidth < 1024 ? 2 : 3;
-
-  if (columns === 1 || paintings.length <= columns) {
-    return paintings;
-  }
-
-  const buckets = Array.from({ length: columns }, () => [] as ImageDetail[]);
-
-  paintings.forEach((painting, index) => {
-    buckets[index % columns].push(painting);
-  });
-  return buckets.flat();
-};
-
 const SeriesDetail = () => {
   const location = useLocation();
   const series = location.state?.series;
+  // Track loaded images by title
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
+  const handleImageLoad = (title: string) => {
+    setLoadedImages((prev) => ({ ...prev, [title]: true }));
+  };
   const topTenPaintings = useMemo(() => {
     return series
       ? series.images_details
@@ -34,25 +21,7 @@ const SeriesDetail = () => {
           )
       : [];
   }, [series]);
-
-  const [viewportWidth, setViewportWidth] = useState(() =>
-    typeof window === "undefined" ? 1280 : window.innerWidth,
-  );
-
-  useEffect(() => {
-    const handleResize = () => setViewportWidth(window.innerWidth);
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const displayedPaintings = useMemo(
-    () => getResponsivePaintings(topTenPaintings, viewportWidth),
-    [topTenPaintings, viewportWidth],
-  );
-
+  console.log("loadedImages", loadedImages);
   return (
     <div className={styles.seriesDetailContainer}>
       <div className={styles.seriesDetailHeader}>
@@ -62,33 +31,42 @@ const SeriesDetail = () => {
       <div className={styles.seriesDetailContent}>
         <p className={styles.seriesDetailDescription}>{series?.description}</p>
         {/* 
-          columns-1: Mobile stack
-          sm:columns-2: 2 columns on tablets
-          lg:columns-3: 3 columns on desktops
-          gap-6: space between columns
+          grid-cols-1: Mobile stack
+          sm:grid-cols-2: 2 columns on tablets
+          lg:grid-cols-3: 3 columns on desktops
         */}
         <div className={styles.seriesDetailGallery}>
-          {displayedPaintings.map((painting: ImageDetail) => (
-            <div
-              key={painting.title}
-              className={`${styles.seriesDetailPaintingContainer} group`}
-            >
-              <img
-                src={painting.url}
-                alt={painting.alt}
-                className={`${styles.seriesDetailPaintingImage} group-hover:scale-[1.02]`}
-                loading="lazy"
-              />
-
+          {topTenPaintings.map((painting: ImageDetail) => {
+            const isLoaded = loadedImages[painting.title];
+            return (
               <div
-                className={`${styles.seriesDetailPaintingOverlay} group-hover:opacity-100`}
+                key={painting.title}
+                className={`${styles.seriesDetailPaintingContainer} group`}
               >
-                <span className={styles.seriesDetailPaintingTitle}>
-                  {painting.title}
-                </span>
+                {/* Skeleton Placeholder */}
+                {!isLoaded && (
+                  <div className={styles.seriesDetailPaintingSkeleton} />
+                )}
+                <img
+                  src={painting.url}
+                  alt={painting.alt}
+                  className={`${styles.seriesDetailPaintingImage} group-hover:scale-[1.02] ${
+                    isLoaded ? "opacity-100" : "opacity-0"
+                  }`}
+                  loading="lazy"
+                  onLoad={() => handleImageLoad(painting.title)}
+                />
+
+                <div
+                  className={`${styles.seriesDetailPaintingOverlay} group-hover:opacity-100`}
+                >
+                  <span className={styles.seriesDetailPaintingTitle}>
+                    {painting.title}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

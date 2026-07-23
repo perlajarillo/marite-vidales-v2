@@ -61,7 +61,7 @@
   }
 
   .seriesDetailGallery {
-    @apply columns-1 sm:columns-2 lg:columns-3 gap-6 [column-fill:balance] w-full;
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-6 w-full;
   }
 
   .seriesDetailPaintingContainer {
@@ -78,5 +78,9 @@
 
   .seriesDetailPaintingTitle {
     @apply text-[0.5rem]  uppercase text-white bg-black/40 backdrop-blur-sm px-3 py-1.5;
+  }
+
+  .seriesDetailPaintingSkeleton {
+    @apply absolute inset-0 bg-neutral-200 dark:bg-neutral-800 animate-pulse min-h-75 rounded-lg;
   }
 }

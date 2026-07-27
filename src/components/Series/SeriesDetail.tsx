@@ -2,16 +2,18 @@ import { useMemo, useState } from "react";
 import { useLocation } from "react-router";
 import type { ImageDetail } from "../../types/series";
 import styles from "./Series.module.css";
+import intl from "../../locales/en.json";
 
 const SeriesDetail = () => {
   const location = useLocation();
   const series = location.state?.series;
   // Track loaded images by title
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
+  const [showAllPaintings, setShowAllPaintings] = useState(false);
   const handleImageLoad = (title: string) => {
     setLoadedImages((prev) => ({ ...prev, [title]: true }));
   };
-  const topTenPaintings = useMemo(() => {
+  const topPaintings = useMemo(() => {
     return series
       ? series.images_details
           .filter((image: ImageDetail) => image.isTopTen)
@@ -21,7 +23,24 @@ const SeriesDetail = () => {
           )
       : [];
   }, [series]);
-  console.log("loadedImages", loadedImages);
+
+  const noTopPaintings = useMemo(() => {
+    return series
+      ? series.images_details.filter((image: ImageDetail) => !image.isTopTen)
+      : [];
+  }, [series]);
+
+  const toggleViewMore = () => {
+    setShowAllPaintings(!showAllPaintings);
+  };
+
+  const paintingsToDisplay = useMemo(() => {
+    if (showAllPaintings) {
+      return [...topPaintings, ...noTopPaintings];
+    }
+    return topPaintings;
+  }, [showAllPaintings, topPaintings, noTopPaintings]);
+
   return (
     <div className={styles.seriesDetailContainer}>
       <div className={styles.seriesDetailHeader}>
@@ -35,8 +54,10 @@ const SeriesDetail = () => {
           sm:grid-cols-2: 2 columns on tablets
           lg:grid-cols-3: 3 columns on desktops
         */}
-        <div className={styles.seriesDetailGallery}>
-          {topTenPaintings.map((painting: ImageDetail) => {
+        <div
+          className={`${styles.seriesDetailGallery} ${paintingsToDisplay.length % 3 !== 0 ? styles.seriesDetailGalleryCenterLastChild : ""}`}
+        >
+          {paintingsToDisplay.map((painting: ImageDetail) => {
             const isLoaded = loadedImages[painting.title];
             return (
               <div
@@ -68,6 +89,15 @@ const SeriesDetail = () => {
             );
           })}
         </div>
+        {topPaintings.length > 0 &&
+          topPaintings.length < series.images_details.length && (
+            <button
+              className={styles.seriesDetailViewMore}
+              onClick={toggleViewMore}
+            >
+              <span>{showAllPaintings ? intl.viewLess : intl.viewMore}</span>
+            </button>
+          )}
       </div>
     </div>
   );

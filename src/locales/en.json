@@ -23,5 +23,7 @@
   "noSeriesDataAvailable": "No series data available.",
   "untitled": "Untitled",
   "noDescriptionAvailable": "No description available.",
-  "viewSeries": "View Series"
+  "viewSeries": "View Series",
+  "viewMore": "View More",
+  "viewLess": "View Less"
 }

@@ -3,6 +3,8 @@ import { useLocation } from "react-router";
 import type { ImageDetail } from "../../types/series";
 import styles from "./Series.module.css";
 import intl from "../../locales/en.json";
+import Modal from "../Common/Dialog/Modal";
+import { Carousel } from "../Common/Carousel/Carousel";
 
 const SeriesDetail = () => {
   const location = useLocation();
@@ -10,6 +12,8 @@ const SeriesDetail = () => {
   // Track loaded images by title
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
   const [showAllPaintings, setShowAllPaintings] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [initialIndex, setInitialIndex] = useState(0);
   const handleImageLoad = (title: string) => {
     setLoadedImages((prev) => ({ ...prev, [title]: true }));
   };
@@ -41,6 +45,35 @@ const SeriesDetail = () => {
     return topPaintings;
   }, [showAllPaintings, topPaintings, noTopPaintings]);
 
+  const carouselImages = useMemo(() => {
+    return paintingsToDisplay.map((painting: ImageDetail) => {
+      const { title, year, technique, measures, url, collectionType } =
+        painting;
+      const measuresArray = measures.split("x");
+      const widthIn = measuresArray[0].split('"');
+      const heightIn = measuresArray[1].split('"');
+      const measuresIn = `${widthIn[0]}x${heightIn[0]} in`;
+      const widthCm = Number(widthIn[0]) * 2.54;
+      const heightCm = Number(heightIn[0]) * 2.54;
+      const measuresCm = `${widthCm}x${heightCm} cm`;
+      const collectionTypeString = collectionType ? ` ${collectionType}.` : "";
+      const yearString = `, ${year}. `;
+      const workDetails = `${technique}, ${measuresIn}. (${measuresCm}). ${collectionTypeString}`;
+
+      return {
+        src: url,
+        alt: title,
+        title: title,
+        caption: (
+          <p>
+            {intl.siteTitle} <span className="italic">{title}</span>{" "}
+            {yearString} {workDetails}
+          </p>
+        ),
+      };
+    });
+  }, [paintingsToDisplay]);
+
   return (
     <div className={styles.seriesDetailContainer}>
       <div className={styles.seriesDetailHeader}>
@@ -57,12 +90,16 @@ const SeriesDetail = () => {
         <div
           className={`${styles.seriesDetailGallery} ${paintingsToDisplay.length % 3 !== 0 ? styles.seriesDetailGalleryCenterLastChild : ""}`}
         >
-          {paintingsToDisplay.map((painting: ImageDetail) => {
+          {paintingsToDisplay.map((painting: ImageDetail, index: number) => {
             const isLoaded = loadedImages[painting.title];
             return (
               <div
                 key={painting.title}
                 className={`${styles.seriesDetailPaintingContainer} group`}
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setInitialIndex(index);
+                }}
               >
                 {/* Skeleton Placeholder */}
                 {!isLoaded && (
@@ -99,6 +136,13 @@ const SeriesDetail = () => {
             </button>
           )}
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={series?.name}
+      >
+        <Carousel images={carouselImages} initialIndex={initialIndex} />
+      </Modal>
     </div>
   );
 };

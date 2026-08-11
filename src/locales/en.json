@@ -25,5 +25,10 @@
   "noDescriptionAvailable": "No description available.",
   "viewSeries": "View Series",
   "viewMore": "View More",
-  "viewLess": "View Less"
+  "viewLess": "View Less",
+  "close": "Close",
+  "contactMe": "Contact Me",
+  "goToSlide": "Go to slide {slideNumber}",
+  "previousSlide": "Previous Slide",
+  "nextSlide": "Next Slide"
 }

@@ -1,4 +1,6 @@
 import { useRef, useEffect, type KeyboardEvent, type MouseEvent } from "react";
+import styles from "./Modal.module.css";
+import intl from "../../../locales/en.json";
 
 interface ModalProps {
   isOpen: boolean;
@@ -41,27 +43,25 @@ const Modal = (props: ModalProps) => {
       ref={dialogRef}
       onCancel={handleCancel}
       onClick={handleBackdropClick}
-      className="backdrop:bg-black/50 backdrop:backdrop-blur-sm p-2 open:animate-fade-in w-full h-full bg-white border border-gray-100 overflow-hidden"
+      className={styles.dialogWrapper}
     >
-      <div className="fixed inset-0 z-50 h-full flex items-center justify-center bg-black/70 p-2">
+      <div className={styles.modalContainer}>
         {/* Container to prevent nested click bugs */}
-        <div className="relative w-full h-full overflow-hidden rounded-2xl bg-white shadow-2xl">
+        <div className={styles.modalContent}>
           {/* Header */}
 
-          <div className="flex items-center justify-end border-b border-gray-200 px-4 py-1">
+          <div className={styles.modalHeader}>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors rounded-lg p-0 hover:bg-gray-50"
-              aria-label="Close dialog"
+              className={styles.modalCloseButton}
+              aria-label={intl.close}
             >
               ✕
             </button>
           </div>
 
           {/* Content Body */}
-          <div className="max-h-[calc(100vh-4rem)] overflow-y-auto px-4 py-1 sm:px-6">
-            {children}
-          </div>
+          <div className={styles.modalBody}>{children}</div>
         </div>
       </div>
     </dialog>

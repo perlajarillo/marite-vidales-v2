@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, type TouchEvent } from "react";
+import styles from "./Carousel.module.css";
+import intl from "../../../locales/en.json";
 
 export interface CarouselImage {
   src: string;
@@ -87,42 +89,37 @@ export const Carousel: React.FC<CarouselProps> = ({
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto overflow-hidden group">
+    <div className={`${styles.carouselContainer} group`}>
       {/* Slides Track */}
       <div
-        className="flex transition-transform duration-500 ease-out"
+        className={`${styles.carouselSlide}`}
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
         {images.map((image, index) => (
-          <div key={index} className="w-full shrink-0 relative">
-            {/* Aspect Ratio Container (16:9 on desktop, adjust as needed) */}
-            <div className="flex flex-direction-column items-center justify-center h-64 sm:h-96 md:h-105 w-full text-center">
+          <div key={index} className={styles.carouselContent}>
+            <div className={styles.carouselImageContainer}>
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-contain select-none p-0"
+                className={styles.carouselImage}
                 draggable={false}
               />
 
               {/* Image Overlay(Optional) */}
               {image.title && !image.caption && (
-                <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-4 sm:p-6 text-white">
+                <div className={styles.carouselTitleWrapper}>
                   {image.title && (
-                    <h3 className="text-lg sm:text-xl font-bold mb-1">
-                      {image.title}
-                    </h3>
+                    <h3 className={styles.carouselImageTitle}>{image.title}</h3>
                   )}
                 </div>
               )}
             </div>
             {/* Image Caption (Optional) */}
             {image.caption && (
-              <div className="text-[0.625rem] text-gray-700 pt-3 pb-4 text-center">
-                {image.caption}
-              </div>
+              <div className={styles.carouselImageCaption}>{image.caption}</div>
             )}
           </div>
         ))}
@@ -131,15 +128,10 @@ export const Carousel: React.FC<CarouselProps> = ({
       {/* Navigation Buttons (Hidden on small screens by default, visible on hover/desktop) */}
       <button
         onClick={handlePrev}
-        aria-label="Previous Slide"
-        className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 sm:p-3 rounded-full shadow-md backdrop-blur-sm transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 focus:opacity-100"
+        aria-label={intl.previousSlide}
+        className={`${styles.carouselNavButton} ${styles.carouselLeftButton} group-hover:opacity-100`}
       >
-        <svg
-          className="w-5 h-5 sm:w-6 sm:h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -151,15 +143,10 @@ export const Carousel: React.FC<CarouselProps> = ({
 
       <button
         onClick={handleNext}
-        aria-label="Next Slide"
-        className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 sm:p-3 rounded-full shadow-md backdrop-blur-sm transition-all opacity-80 sm:opacity-0 group-hover:opacity-100 focus:opacity-100"
+        aria-label={intl.nextSlide}
+        className={`${styles.carouselNavButton} ${styles.carouselRightButton} group-hover:opacity-100`}
       >
-        <svg
-          className="w-5 h-5 sm:w-6 sm:h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -170,16 +157,19 @@ export const Carousel: React.FC<CarouselProps> = ({
       </button>
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-0.5 left-1/2 -translate-x-1/2 flex  space-x-2 z-10">
+      <div className={`${styles.carouselIndicators} `}>
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => handleDotClick(index)}
-            aria-label={`Go to slide ${index + 1}`}
-            className={`transition-all duration-300 rounded-full ${
+            aria-label={intl.goToSlide.replace(
+              "{slideNumber}",
+              (index + 1).toString(),
+            )}
+            className={`${styles.carouselDotIndicator} ${
               currentIndex === index
-                ? "w-6 sm:w-8 h-2 bg-gray-500"
-                : "w-2 h-2 bg-gray-400 hover:bg-gray-400/80"
+                ? styles.carouselDotIndicatorActive
+                : styles.carouselDotIndicatorInactive
             }`}
           />
         ))}

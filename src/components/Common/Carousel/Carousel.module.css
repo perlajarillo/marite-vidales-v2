@@ -1,0 +1,52 @@
+@reference "tailwindcss";
+
+@layer components {
+  .carouselContainer {
+    @apply relative w-full max-w-4xl mx-auto overflow-hidden;
+  }
+  .carouselSlide {
+    @apply flex transition-transform duration-500 ease-out;
+  }
+  .carouselContent {
+    @apply w-full shrink-0 relative;
+  }
+  .carouselImageContainer {
+    @apply flex flex-col items-center justify-center h-84 sm:h-96 md:h-105 w-full text-center;
+  }
+  .carouselImage {
+    @apply w-full h-full object-contain select-none p-0;
+  }
+  .carouselImageTitleWrapper {
+    @apply absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-4 sm:p-6 text-white;
+  }
+  .carouselImageTitle {
+    @apply text-lg sm:text-xl font-bold mb-1;
+  }
+  .carouselImageCaption {
+    @apply text-[0.625rem] text-gray-700 pt-3 pb-4 text-center;
+  }
+  .carouselNavButton {
+    @apply absolute top-1/2 -translate-y-1/2 bg-white/80 hover:bg-gray-300 hover:cursor-pointer text-gray-800 p-2 sm:p-3 rounded-full shadow-md backdrop-blur-sm transition-all opacity-80 sm:opacity-0 focus:opacity-100;
+  }
+  .carouselLeftButton {
+    @apply left-3;
+  }
+  .carouselRightButton {
+    @apply right-3;
+  }
+  .carouselNavButton svg {
+    @apply w-5 h-5 sm:w-6 sm:h-6;
+  }
+  .carouselIndicators {
+    @apply absolute bottom-0.5 left-1/2 -translate-x-1/2 flex  space-x-2 z-10;
+  }
+  .carouselDotIndicator {
+    @apply transition-all duration-300 rounded-full;
+  }
+  .carouselDotIndicatorActive {
+    @apply w-6 sm:w-8 h-2 bg-gray-500;
+  }
+  .carouselDotIndicatorInactive {
+    @apply w-2 h-2 bg-gray-400 hover:bg-gray-400/80;
+  }
+}

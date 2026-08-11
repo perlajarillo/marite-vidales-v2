@@ -49,9 +49,9 @@ const SeriesDetail = () => {
     return paintingsToDisplay.map((painting: ImageDetail) => {
       const { title, year, technique, measures, url, collectionType } =
         painting;
-      const measuresArray = measures.split("x");
-      const widthIn = measuresArray[0].split('"');
-      const heightIn = measuresArray[1].split('"');
+      const measuresArray = (measures || "").split("x");
+      const widthIn = (measuresArray[0] || "").split('"');
+      const heightIn = (measuresArray[1] || "").split('"');
       const measuresIn = `${widthIn[0]}x${heightIn[0]} in`;
       const widthCm = Number(widthIn[0]) * 2.54;
       const heightCm = Number(heightIn[0]) * 2.54;
@@ -66,7 +66,7 @@ const SeriesDetail = () => {
         title: title,
         caption: (
           <p>
-            {intl.siteTitle} <span className="italic">{title}</span>{" "}
+            {intl.siteTitle} <span className="italic">{title}</span>
             {yearString} {workDetails}
           </p>
         ),

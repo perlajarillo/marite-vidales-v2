@@ -30,5 +30,11 @@
   "contactMe": "Contact Me",
   "goToSlide": "Go to slide {slideNumber}",
   "previousSlide": "Previous Slide",
-  "nextSlide": "Next Slide"
+  "nextSlide": "Next Slide",
+  "Galleries": "Galleries",
+  "SelectedSoloExhibitions": "Selected Solo Exhibitions",
+  "SelectedJuriedExhibitions": "Selected Juried Exhibitions",
+  "Exhibition": "Exhibition",
+  "GrantsAndAwards": "Grants and Awards",
+  "SelectedGroupExhibitions": "Selected Group Exhibitions"
 }

@@ -7,6 +7,7 @@ import "./services/firebase"; // Ensure Firebase is initialized
 import Biography from "./components/Biography/Biography.tsx";
 import Series from "./components/Series/Series";
 import SeriesDetail from "./components/Series/SeriesDetail.tsx";
+import Exhibits from "./components/Exhibits/Exhibits.tsx";
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Route path="/under-construction" element={<UnderConstruction />} />
           <Route path="/series" element={<Series />} />
           <Route path="/series-detail" element={<SeriesDetail />} />
+          <Route path="/exhibits" element={<Exhibits />} />
         </Routes>
       </main>
     </>

@@ -16,7 +16,9 @@ const Exhibits = () => {
     alt: picture.caption,
     caption: picture.caption,
   }));
-  const galleries = data?.galleries ? Object.values(data.galleries) : [];
+  const galleries = data?.galleries
+    ? Object.values(data.galleries).slice(0).reverse()
+    : [];
   const soloExhibitions = data?.solo ?? {};
   const juriedExhibitions = data?.juried ?? {};
   const selectedGroupExhibitions = data?.selected ?? {};

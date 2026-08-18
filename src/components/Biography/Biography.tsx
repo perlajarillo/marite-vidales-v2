@@ -18,6 +18,7 @@ const BiographyPage: React.FC = () => {
             src={data?.pictureUrl}
             alt="Marite Vidales"
             className={styles.photo}
+            loading="lazy"
           />
         </div>
         <p className={styles.summaryText}>{data?.summary}</p>

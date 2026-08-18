@@ -13,7 +13,7 @@ const App: React.FC = () => {
   return (
     <>
       <Sidebar />
-      <main className="lg:ml-54 mt-37 lg:mt-0 min-h-screen lg:pt-0  p-5">
+      <main className="lg:ml-54 mt-37 lg:mt-0 min-h-screen lg:pt-0  p-5 text-brand-primary">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/biography" element={<Biography />} />

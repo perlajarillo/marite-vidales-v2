@@ -1,4 +1,4 @@
-interface Gallery {
+export interface Gallery {
   address: string;
   gallery: string;
 }

@@ -23,7 +23,7 @@
   }
 
   .seriesDescription {
-    @apply mt-2 text-sm text-[#424242] leading-relaxed line-clamp-3 grow font-sans;
+    @apply mt-2 text-sm text-[#424242] leading-relaxed line-clamp-3 grow;
   }
 
   .seriesActionBar {

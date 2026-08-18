@@ -19,7 +19,7 @@ const Sidebar: React.FC = () => {
   const tabsData = [
     { label: intl.home, to: "/" },
     { label: intl.artwork, to: "/series" },
-    { label: intl.exhibits, to: "/under-construction" },
+    { label: intl.exhibits, to: "/exhibits" },
     { label: intl.biography, to: "/biography" },
     { label: intl.reviews, to: "/under-construction" },
     { label: intl.contact, to: "/under-construction" },

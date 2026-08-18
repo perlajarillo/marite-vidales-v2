@@ -17,13 +17,13 @@
     @apply w-full h-full object-contain select-none p-0;
   }
   .carouselImageTitleWrapper {
-    @apply absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-4 sm:p-6 text-white;
+    @apply absolute bottom-0 inset-x-0 bg-linear-to-tr from-black/80 via-black/50 to-transparent p-4 sm:p-6 text-white/85;
   }
   .carouselImageTitle {
-    @apply text-lg sm:text-xl font-bold mb-1;
+    @apply text-[0.65rem] font-bold mb-1;
   }
   .carouselImageCaption {
-    @apply text-[0.625rem] text-gray-700 pt-3 pb-4 text-center;
+    @apply text-[0.625rem] text-gray-700 pt-1 pb-3 text-center;
   }
   .carouselNavButton {
     @apply absolute top-1/2 -translate-y-1/2 bg-white/80 hover:bg-gray-300 hover:cursor-pointer text-gray-800 p-2 sm:p-3 rounded-full shadow-md backdrop-blur-sm transition-all opacity-80 sm:opacity-0 focus:opacity-100;

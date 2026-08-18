@@ -1,0 +1,59 @@
+@reference "tailwindcss";
+
+@layer components {
+  .exhibitsContainer {
+    @apply text-[0.75rem];
+  }
+  .exhibitsContent {
+    @apply flex flex-col text-center pt-4;
+  }
+  .exhibitTitle {
+    @apply text-center text-lg font-semibold p-2;
+  }
+  .exhibits {
+    @apply flex flex-col p-4 gap-5 text-justify divide-y divide-gray-300 dark:divide-gray-700;
+  }
+  .exhibitsList {
+    @apply flex flex-col p-2 gap-2 text-justify pb-4;
+  }
+  .carouselContainer {
+    @apply w-full max-w-md mx-auto pt-0;
+  }
+  .groupedExhibitsContainer {
+    @apply pb-4;
+  }
+  .groupedExhibitsList {
+    @apply flex gap-4 pt-4;
+  }
+  .groupedExhibitGrid {
+    @apply flex flex-col gap-4;
+  }
+
+  .skeletonRoot {
+    @apply flex flex-col gap-6 p-4;
+  }
+
+  .skeletonCarousel {
+    @apply h-52 w-full rounded-xl bg-gray-200;
+  }
+
+  .skeletonSection {
+    @apply flex flex-col gap-3 border-b border-gray-200 pb-4;
+  }
+
+  .skeletonTitle {
+    @apply h-5 w-40 rounded bg-gray-200;
+  }
+
+  .skeletonTextGroup {
+    @apply flex flex-col gap-2;
+  }
+
+  .skeletonLine {
+    @apply h-3 w-full rounded bg-gray-200;
+  }
+
+  .skeletonLineShort {
+    @apply h-3 w-2/3 rounded bg-gray-200;
+  }
+}

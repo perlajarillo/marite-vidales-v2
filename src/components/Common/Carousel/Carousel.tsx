@@ -14,6 +14,7 @@ interface CarouselProps {
   autoPlay?: boolean;
   autoPlayInterval?: number;
   initialIndex?: number;
+  fitHeight?: boolean; // Optional prop to control height fitting
 }
 
 export const Carousel: React.FC<CarouselProps> = ({
@@ -21,6 +22,7 @@ export const Carousel: React.FC<CarouselProps> = ({
   autoPlay = false,
   autoPlayInterval = 5000,
   initialIndex = 0,
+  fitHeight = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(initialIndex);
   const [prevInitialIndex, setPrevInitialIndex] =
@@ -100,7 +102,9 @@ export const Carousel: React.FC<CarouselProps> = ({
       >
         {images.map((image, index) => (
           <div key={index} className={styles.carouselContent}>
-            <div className={styles.carouselImageContainer}>
+            <div
+              className={`${styles.carouselImageContainer} ${fitHeight ? "h-fit" : ""}`}
+            >
               <img
                 src={image.src}
                 alt={image.alt}
@@ -110,7 +114,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 
               {/* Image Overlay(Optional) */}
               {image.title && !image.caption && (
-                <div className={styles.carouselTitleWrapper}>
+                <div className={styles.carouselImageTitleWrapper}>
                   {image.title && (
                     <h3 className={styles.carouselImageTitle}>{image.title}</h3>
                   )}

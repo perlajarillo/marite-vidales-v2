@@ -2,7 +2,7 @@
 
 @layer components {
   .biographyContainer {
-    @apply flex flex-col text-center pt-4 pb-4 divide-y;
+    @apply flex flex-col text-center pt-4 pb-4 divide-y divide-gray-300;
   }
   .summaryContainer {
     @apply max-w-6xl pb-8;
@@ -53,12 +53,12 @@
     @apply max-w-6xl p-4 pt-8;
   }
   .summaryText {
-    @apply whitespace-pre-line text-justify text-[0.98rem] md:pt-6 md:px-15;
+    @apply whitespace-pre-line text-justify text-[0.75rem] md:pt-6 md:px-15;
   }
   .sectionTitle {
-    @apply text-center text-lg font-semibold text-gray-900;
+    @apply text-center text-lg font-semibold;
   }
   .sectionItem {
-    @apply whitespace-pre-line text-justify text-[0.98rem] pt-6 md:px-15;
+    @apply whitespace-pre-line text-justify text-[0.75rem] pt-6 md:px-15;
   }
 }

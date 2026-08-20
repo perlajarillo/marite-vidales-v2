@@ -11,7 +11,7 @@
     @apply w-full shrink-0 relative;
   }
   .carouselImageContainer {
-    @apply flex flex-col items-center justify-center h-84 sm:h-96 md:h-105 w-full text-center;
+    @apply flex flex-col items-center justify-center h-84 sm:h-96 md:h-130 w-full text-center pb-2;
   }
   .carouselImage {
     @apply w-full h-full object-contain select-none p-0;
@@ -23,7 +23,7 @@
     @apply text-[0.65rem] font-bold mb-1;
   }
   .carouselImageCaption {
-    @apply text-[0.625rem] text-gray-700 pt-1 pb-3 text-center;
+    @apply text-[0.75rem] text-gray-700 pt-2 pb-6 text-center;
   }
   .carouselNavButton {
     @apply absolute top-1/2 -translate-y-1/2 bg-white/80 hover:bg-gray-300 hover:cursor-pointer text-gray-800 p-2 sm:p-3 rounded-full shadow-md backdrop-blur-sm transition-all opacity-80 sm:opacity-0 focus:opacity-100;
@@ -38,7 +38,7 @@
     @apply w-5 h-5 sm:w-6 sm:h-6;
   }
   .carouselIndicators {
-    @apply absolute bottom-0.5 left-1/2 -translate-x-1/2 flex  space-x-2 z-10;
+    @apply absolute bottom-0.5 left-1/2 -translate-x-1/2 flex space-x-2 z-10;
   }
   .carouselDotIndicator {
     @apply transition-all duration-300 rounded-full;

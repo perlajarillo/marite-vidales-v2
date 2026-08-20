@@ -19,11 +19,11 @@
   }
 
   .seriesName {
-    @apply text-xl  text-[#424242] tracking-wide font-medium;
+    @apply text-xl text-[#424242] tracking-wide font-medium;
   }
 
   .seriesDescription {
-    @apply mt-2 text-sm text-[#424242] leading-relaxed line-clamp-3 grow;
+    @apply mt-2 text-sm text-[#424242] leading-relaxed line-clamp-3 grow text-justify;
   }
 
   .seriesActionBar {
@@ -50,14 +50,14 @@
   }
 
   .seriesDetailTitle {
-    @apply text-xl text-[#424242] font-semibold tracking-widest md:text-2xl;
+    @apply text-xl pt-6 text-[#424242] font-semibold tracking-widest md:text-2xl;
   }
 
   .seriesDetailContent {
     @apply px-4 py-6 md:px-12 w-full mx-auto text-center;
   }
   .seriesDetailDescription {
-    @apply text-xs tracking-wider text-[#424242] mb-6;
+    @apply text-sm tracking-wider text-[#424242] mb-6 text-justify;
   }
 
   .seriesDetailGallery {

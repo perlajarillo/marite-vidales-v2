@@ -94,7 +94,7 @@ const SeriesDetail = () => {
             const isLoaded = loadedImages[painting.title];
             return (
               <div
-                key={painting.title}
+                key={`${painting.title}-${index}`}
                 className={`${styles.seriesDetailPaintingContainer} group`}
                 onClick={() => {
                   setIsModalOpen(true);

@@ -2,7 +2,7 @@
 
 @layer components {
   .exhibitsContainer {
-    @apply text-[0.75rem];
+    @apply text-[0.875rem];
   }
   .exhibitsContent {
     @apply flex flex-col text-center pt-4;

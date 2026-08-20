@@ -10,7 +10,7 @@
   }
 
   .sidebarTitle {
-    @apply text-2xl leading-tight font-medium text-center;
+    @apply text-3xl leading-tight font-medium text-center;
   }
 
   .sidebarSubtitle {

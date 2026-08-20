@@ -5,7 +5,7 @@ import intl from "../../locales/en.json";
 const Home: React.FC = () => {
   return (
     <div className={styles.homeContainer}>
-      <div className={styles.openingLine}>
+      <div>
         <p className={styles.homeArtSummary}>{intl.openingLine}</p>
       </div>
       <div className={styles.homeCollage}></div>

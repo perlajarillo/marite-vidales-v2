@@ -9,6 +9,7 @@ import Series from "./components/Series/Series";
 import SeriesDetail from "./components/Series/SeriesDetail.tsx";
 import Exhibits from "./components/Exhibits/Exhibits.tsx";
 import { Contact } from "./components/Contact/Contact.tsx";
+import Reviews from "./components/Reviews/Reviews";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
           <Route path="/series-detail" element={<SeriesDetail />} />
           <Route path="/exhibits" element={<Exhibits />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/reviews" element={<Reviews />} />
         </Routes>
       </main>
     </>

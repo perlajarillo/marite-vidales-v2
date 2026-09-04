@@ -25,7 +25,14 @@ const Sidebar: React.FC = () => {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.sidebarHeader}>
-        <h2 className={styles.sidebarTitle}>{intl.siteTitle}</h2>
+        <NavLink
+          key={0}
+          to={tabsData[0].to}
+          className={""}
+          onClick={() => setActiveIndex(0)}
+        >
+          <h2 className={styles.sidebarTitle}>{intl.siteTitle}</h2>
+        </NavLink>
       </div>
       <nav className={styles.sidebarNav}>
         {tabsData.map((tab, index) => (

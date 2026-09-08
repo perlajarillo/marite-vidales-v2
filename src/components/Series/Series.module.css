@@ -53,11 +53,27 @@
     @apply text-xl pt-6 text-[#424242] font-semibold tracking-widest md:text-2xl;
   }
 
+  .seriesDetailSkeletonTitle {
+    @apply mt-6 h-6 w-48 animate-pulse rounded bg-neutral-200 md:h-7 md:w-64;
+  }
+
   .seriesDetailContent {
     @apply px-4 py-6 md:px-12 w-full mx-auto text-center;
   }
   .seriesDetailDescription {
     @apply text-sm tracking-wider text-[#424242] mb-6 text-justify;
+  }
+
+  .seriesDetailSkeletonDescription {
+    @apply mb-6 space-y-2;
+  }
+
+  .seriesDetailSkeletonDescription div {
+    @apply h-3 animate-pulse rounded bg-neutral-200;
+  }
+
+  .seriesDetailSkeletonDescription div:last-child {
+    @apply w-4/5;
   }
 
   .seriesDetailGallery {
@@ -87,7 +103,17 @@
   .seriesDetailPaintingSkeleton {
     @apply absolute inset-0 bg-neutral-200 dark:bg-neutral-800 animate-pulse min-h-75 rounded-lg;
   }
+
+  .seriesDetailSkeletonPainting {
+    @apply min-h-75 animate-pulse bg-neutral-200;
+  }
   .seriesDetailViewMore {
     @apply mt-6 py-3 px-4 text-sm  font-semibold text-[#424242] border border-gray-300 rounded-md hover:bg-gray-100 transition-colors duration-300;
+  }
+  .seriesDetailNotFoundContainer {
+    @apply text-center md:p-8;
+  }
+  .seriesDetailNotFoundImage {
+    @apply w-full h-120 overflow-hidden bg-contain bg-center bg-no-repeat mb-4 bg-[url(/404.png)];
   }
 }

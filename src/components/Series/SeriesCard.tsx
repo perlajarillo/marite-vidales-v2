@@ -23,7 +23,7 @@ const SeriesCard = (props: SeriesCardProps) => {
         <p className={styles.seriesDescription}>{series.description}</p>
 
         <div className={styles.seriesActionBar}>
-          <Link to={`/series-detail`} state={{ series }}>
+          <Link to={`/series-detail/${series.name}`} state={{ series }}>
             <button className={styles.seriesViewButton}>
               <span>{intl.viewSeries}</span>
               <span>→</span>

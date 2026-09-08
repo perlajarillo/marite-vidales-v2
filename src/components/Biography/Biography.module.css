@@ -8,7 +8,7 @@
     @apply max-w-6xl pb-8;
   }
   .photoContainer {
-    @apply md:float-right md:pt-9 md:ml-8 md:mr-14 md:mb-2 pt-8;
+    @apply md:float-right md:pt-9 md:ml-8 md:mr-14 md:mb-2 pt-8 pl-6;
   }
   .photo {
     @apply mx-auto w-52.5 md:w-62.5 relative aspect-3/4 rounded-md object-cover shadow-lg border border-zinc-200/50;

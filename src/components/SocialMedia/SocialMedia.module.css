@@ -1,0 +1,14 @@
+@reference "tailwindcss";
+
+@layer components {
+  .sidebarSocialLink {
+    @apply inline-flex items-center justify-center text-gray-600 transition-all duration-300 bg-white rounded-full shadow-md hover:bg-gray-600 hover:text-white hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 gap-2;
+  }
+
+  .sidebarInstagramIcon {
+    @apply w-4 h-4;
+  }
+  .sidebarIcon {
+    @apply w-4.5 h-4.5;
+  }
+}

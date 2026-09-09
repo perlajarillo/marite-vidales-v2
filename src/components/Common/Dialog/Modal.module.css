@@ -1,0 +1,23 @@
+@reference "tailwindcss";
+@reference "../../../index.css";
+
+@layer components {
+  .dialogWrapper {
+    @apply backdrop:bg-black/50 backdrop:backdrop-blur-sm p-2 open:animate-fade-in w-full h-full bg-white border border-gray-100 overflow-hidden;
+  }
+  .modalContainer {
+    @apply fixed inset-0 z-50 h-full flex items-center justify-center bg-black/70 p-2;
+  }
+  .modalContent {
+    @apply relative w-full h-full overflow-hidden rounded-2xl bg-white shadow-2xl;
+  }
+  .modalHeader {
+    @apply flex items-center justify-end border-b border-gray-200 px-4 py-1;
+  }
+  .modalCloseButton {
+    @apply text-gray-400 hover:text-gray-600 transition-colors rounded-lg p-0 hover:bg-gray-50;
+  }
+  .modalBody {
+    @apply max-h-[calc(100vh-4rem)] overflow-y-auto px-4 py-1 sm:px-6;
+  }
+}

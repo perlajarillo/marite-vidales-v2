@@ -6,7 +6,7 @@
   }
 
   .homeArtSummary {
-    @apply lg:text-xl text-stone-600 max-w-2xl leading-relaxed mb-5 mt-4;
+    @apply text-[1rem] text-stone-600 max-w-2xl leading-relaxed mb-5 mt-4;
   }
   .homeCollage {
     @apply w-full h-screen bg-contain lg:bg-center bg-no-repeat p-25;

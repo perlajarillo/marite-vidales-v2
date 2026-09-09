@@ -1,4 +1,4 @@
-import { ref, get } from "firebase/database";
+import { ref, get, query, orderByChild, equalTo } from "firebase/database";
 import { db } from "./firebase";
 
 /**
@@ -21,6 +21,37 @@ export async function getSeries() {
     }
   } catch (error) {
     console.error("Error fetching series:", error);
+    throw error;
+  }
+}
+
+/**
+ * Fetches a series matching a specific name property.
+ * @param {string} seriesName - The exact name of the series to find.
+ * @returns {Promise<any>}
+ */
+export async function getSeriesByName(seriesName: string) {
+  try {
+    const seriesRef = ref(db, "series");
+
+    // Create a query filtering by the child field "name"
+    const seriesQuery = query(
+      seriesRef,
+      orderByChild("name"),
+      equalTo(seriesName),
+    );
+
+    const snapshot = await get(seriesQuery);
+
+    if (snapshot.exists()) {
+      return snapshot.val();
+      // Returns an object containing matching items: { "-Nx123...": { name: "...", ... } }
+    } else {
+      console.warn(`No series found with name: ${seriesName}`);
+      return null;
+    }
+  } catch (error) {
+    console.error(`Error querying series by name (${seriesName}):`, error);
     throw error;
   }
 }

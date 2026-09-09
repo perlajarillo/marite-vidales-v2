@@ -1,14 +1,20 @@
-import { useMemo, useState } from "react";
-import { useLocation } from "react-router";
+import { useEffect, useMemo, useState } from "react";
+import { useLocation, useParams } from "react-router";
 import type { ImageDetail } from "../../types/series";
 import styles from "./Series.module.css";
 import intl from "../../locales/en.json";
 import Modal from "../Common/Dialog/Modal";
 import { Carousel } from "../Common/Carousel/Carousel";
+import { getSeriesByName } from "../../services/series";
+import SeriesDetailSkeleton from "./SeriesDetailSkeleton";
 
 const SeriesDetail = () => {
   const location = useLocation();
-  const series = location.state?.series;
+  const { name } = useParams();
+  const seriesState = location.state?.series;
+  const [series, setSeries] = useState(seriesState || null);
+  const [loading, setLoading] = useState(!seriesState);
+
   // Track loaded images by title
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
   const [showAllPaintings, setShowAllPaintings] = useState(false);
@@ -19,8 +25,8 @@ const SeriesDetail = () => {
   };
   const topPaintings = useMemo(() => {
     return series
-      ? series.images_details
-          .filter((image: ImageDetail) => image.isTopTen)
+      ? series?.images_details
+          ?.filter((image: ImageDetail) => image.isTopTen)
           .sort(
             (a: ImageDetail, b: ImageDetail) =>
               (a.order as number) - (b.order as number),
@@ -30,7 +36,7 @@ const SeriesDetail = () => {
 
   const noTopPaintings = useMemo(() => {
     return series
-      ? series.images_details.filter((image: ImageDetail) => !image.isTopTen)
+      ? series.images_details?.filter((image: ImageDetail) => !image.isTopTen)
       : [];
   }, [series]);
 
@@ -42,7 +48,7 @@ const SeriesDetail = () => {
     if (showAllPaintings) {
       return [...topPaintings, ...noTopPaintings];
     }
-    return topPaintings;
+    return topPaintings || [];
   }, [showAllPaintings, topPaintings, noTopPaintings]);
 
   const carouselImages = useMemo(() => {
@@ -74,7 +80,25 @@ const SeriesDetail = () => {
     });
   }, [paintingsToDisplay]);
 
-  return (
+  useEffect(() => {
+    if (!seriesState && name) {
+      getSeriesByName(name).then((data) => {
+        setSeries(
+          Object.entries(data || {}).map(([_, value]) => value)[0] || null,
+        );
+        setLoading(false);
+      });
+    }
+  }, [seriesState, name]);
+
+  if (loading) return <SeriesDetailSkeleton />;
+
+  return !loading && !series ? (
+    <div className={styles.seriesDetailNotFoundContainer}>
+      <div className={styles.seriesDetailNotFoundImage}></div>
+      <p>{intl.SeriesNotFound}</p>
+    </div>
+  ) : (
     <div className={styles.seriesDetailContainer}>
       <div className={styles.seriesDetailHeader}>
         <h1 className={styles.seriesDetailTitle}>{series?.name}</h1>
@@ -126,8 +150,8 @@ const SeriesDetail = () => {
             );
           })}
         </div>
-        {topPaintings.length > 0 &&
-          topPaintings.length < series.images_details.length && (
+        {topPaintings?.length > 0 &&
+          topPaintings?.length < series?.images_details?.length && (
             <button
               className={styles.seriesDetailViewMore}
               onClick={toggleViewMore}

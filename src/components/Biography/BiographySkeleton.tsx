@@ -4,7 +4,7 @@ const BiographySkeleton: React.FC = () => {
   return (
     <div className={styles.biographySkeletonContainer}>
       <section className={styles.summarySkeletonSection}>
-        <div className={styles.photoContainer}>
+        <div className={styles.photoContainerSkeleton}>
           <div className={styles.photoSkeleton} />
         </div>
         <div className={styles.summarySkeletonTextGroup}>
@@ -20,6 +20,7 @@ const BiographySkeleton: React.FC = () => {
         <div className={styles.summarySkeletonTextGroup}>
           <div className={styles.skeletonLine} />
           <div className={styles.skeletonLineShort} />
+          <div className={styles.skeletonLineExtraShort} />
         </div>
       </section>
 
@@ -28,6 +29,7 @@ const BiographySkeleton: React.FC = () => {
         <div className={styles.summarySkeletonTextGroup}>
           <div className={styles.skeletonLine} />
           <div className={styles.skeletonLineShort} />
+          <div className={styles.skeletonLineExtraShort} />
         </div>
       </section>
     </div>

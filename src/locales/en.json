@@ -42,7 +42,18 @@
   "StudioVisitsInTheShawWashingtonDCNeighborhood": "Studio visits in the Shaw, Washington, D.C. neighborhood",
   "ContactMe": "Contact Me!",
   "SocialMedia": "Social Media",
-  "Email": "Email",
+  "Email": "Email Address",
   "ExploreSocialMedia": "Explore recent paintings, behind-the-scenes studio updates, and exhibition announcements.",
-  "SeriesNotFound": "No series found under that name"
+  "SeriesNotFound": "No series found under that name",
+  "Login": "Login",
+  "Password": "Password",
+  "ShowPassword": "Show password",
+  "HidePassword": "Hide password",
+  "LoginButton": "Login",
+  "SigningIn": "Signing In...",
+  "LoginError": "Invalid credentials. Please try again.",
+  "LogoutButton": "Logout",
+  "LogoutSuccess": "Logout successful! Redirecting...",
+  "LoginRequired": "You must be logged in to view this page.",
+  "welcomeBack": "Welcome Back"
 }

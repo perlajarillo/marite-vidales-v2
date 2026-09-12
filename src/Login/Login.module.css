@@ -1,0 +1,31 @@
+@reference "tailwindcss";
+
+@layer components {
+  .loginContainer {
+    @apply flex min-h-screen md:items-center md:justify-center bg-gray-50 px-4 pt-8 md:pt-0;
+  }
+  .loginBox {
+    @apply w-full max-w-md h-full rounded-2xl bg-white p-8 shadow-xl;
+  }
+  .loginTitle {
+    @apply mb-6 text-center text-3xl font-semibold;
+  }
+  .loginError {
+    @apply mb-4 rounded-lg bg-red-50 p-4 text-sm text-red-600 border border-red-200;
+  }
+  .loginForm {
+    @apply space-y-5;
+  }
+  .loginLabel {
+    @apply mb-1 block text-sm font-medium;
+  }
+  .loginInput {
+    @apply w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-200;
+  }
+  .loginEyeButton {
+    @apply absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none;
+  }
+  .loginButton {
+    @apply w-full rounded-lg bg-gray-500 py-3 font-semibold text-white transition hover:bg-gray-700 disabled:opacity-50;
+  }
+}

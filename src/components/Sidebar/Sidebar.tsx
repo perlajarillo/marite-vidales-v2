@@ -9,6 +9,7 @@ import {
   InstagramIcon,
 } from "../SocialMedia/SocialMedia";
 import { useLocation } from "react-router";
+import { useAuth } from "../../Login/AuthContext";
 
 const getActiveIndexFromPath = (currentUrl: string): number => {
   if (currentUrl.includes("series")) {
@@ -33,8 +34,9 @@ const Sidebar: React.FC = () => {
   );
 
   const year = new Date().getFullYear();
+  const { user, logout } = useAuth();
 
-  const tabsData = [
+  const notAuthTabsData = [
     { label: intl.home, to: "/" },
     { label: intl.artwork, to: "/series" },
     { label: intl.exhibits, to: "/exhibits" },
@@ -42,6 +44,29 @@ const Sidebar: React.FC = () => {
     { label: intl.reviews, to: "/reviews" },
     { label: intl.contact, to: "/contact" },
   ];
+
+  const authUserTabsData = [
+    { label: intl.home, to: "/" },
+    { label: intl.myseries, to: "/myseries" },
+    { label: intl.myExhibits, to: "/myexhibits" },
+    { label: intl.myBiography, to: "/mybiography" },
+    { label: intl.myReviews, to: "/myreviews" },
+    {
+      label: intl.LogoutButton,
+      to: "/",
+    },
+  ];
+
+  const tabsData = user ? authUserTabsData : notAuthTabsData;
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setActiveIndex(0); // Reset active index to home after logout
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
 
   return (
     <aside className={styles.sidebar}>
@@ -65,7 +90,11 @@ const Sidebar: React.FC = () => {
                 ? `${styles.sidebarLinkActive} ${styles.sidebarLink}`
                 : styles.sidebarLink
             }
-            onClick={() => setActiveIndex(index)}
+            onClick={() =>
+              tab.label === intl.LogoutButton
+                ? handleLogout()
+                : setActiveIndex(index)
+            }
           >
             {tab.label}
           </NavLink>

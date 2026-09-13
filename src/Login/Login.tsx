@@ -2,6 +2,7 @@ import { useState, type SubmitEvent } from "react";
 import { useAuth } from "./AuthContext";
 import styles from "./Login.module.css";
 import intl from "../locales/en.json";
+import { useNavigate } from "react-router";
 
 const EyeOff = () => (
   <svg
@@ -47,6 +48,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
@@ -55,7 +57,7 @@ const Login = () => {
       setError("");
       setLoading(true);
       await login(email, password);
-      alert("Logged in successfully!");
+      navigate("/myseries", { replace: true }); // Redirect to the user's series page after successful login
     } catch (err) {
       setError("Failed to sign in. Check your credentials.");
       console.error(err);

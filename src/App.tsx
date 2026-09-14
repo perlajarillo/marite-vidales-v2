@@ -10,11 +10,12 @@ import SeriesDetail from "./components/Series/SeriesDetail.tsx";
 import Exhibits from "./components/Exhibits/Exhibits.tsx";
 import { Contact } from "./components/Contact/Contact.tsx";
 import Reviews from "./components/Reviews/Reviews";
-import Login from "./Login/Login.tsx";
+import Login from "./components/Login/Login.tsx";
 import MySeries from "./components/MySeries/MySeries.tsx";
 import MyBiography from "./components/MyBiography/MyBiography.tsx";
 import MyReviews from "./components/MyReviews/MyReviews.tsx";
 import MyExhibits from "./components/MyExhibits/MyExhibits.tsx";
+import PasswordReset from "./components/PasswordReset/PasswordReset.tsx";
 
 const App: React.FC = () => {
   return (
@@ -35,6 +36,7 @@ const App: React.FC = () => {
           <Route path="/myexhibits" element={<MyExhibits />} />
           <Route path="/myreviews" element={<MyReviews />} />
           <Route path="/mybiography" element={<MyBiography />} />
+          <Route path="/password-reset" element={<PasswordReset />} />
         </Routes>
       </main>
     </>

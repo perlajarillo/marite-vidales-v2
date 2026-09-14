@@ -9,7 +9,7 @@ import {
   InstagramIcon,
 } from "../SocialMedia/SocialMedia";
 import { useLocation } from "react-router";
-import { useAuth } from "../../Login/AuthContext";
+import { useAuth } from "../Login/AuthContext";
 
 const getActiveIndexFromPath = (currentUrl: string): number => {
   if (currentUrl.includes("series")) {

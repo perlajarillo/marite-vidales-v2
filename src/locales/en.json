@@ -60,5 +60,11 @@
   "LoginRequired": "You must be logged in to view this page.",
   "welcomeBack": "Welcome Back",
   "onlyAdminCanAccess": "Sorry, only authorized users can access this content.",
-  "goToHome": "Go to Home"
+  "goToHome": "Go to Home",
+  "resetPassword": "Reset Password",
+  "backToLogin": "Back to Login",
+  "sending": "Sending...",
+  "sendResetLink": "Send Reset Link",
+  "resetLinkSent": "A password reset link has been sent to your email.",
+  "failedToResetPassword": "Failed to reset password. Please try again."
 }

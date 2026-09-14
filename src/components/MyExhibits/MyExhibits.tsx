@@ -1,4 +1,4 @@
-import { useAuth } from "../../Login/AuthContext";
+import { useAuth } from "../Login/AuthContext";
 import UnderConstruction from "../UnderConstruction/UnderConstruction";
 import Unauthorized from "../Unauthorized/Unauthorized";
 

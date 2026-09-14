@@ -1,8 +1,8 @@
 import { useState, type SubmitEvent } from "react";
 import { useAuth } from "./AuthContext";
 import styles from "./Login.module.css";
-import intl from "../locales/en.json";
-import { useNavigate } from "react-router";
+import intl from "../../locales/en.json";
+import { Link, useNavigate } from "react-router";
 
 const EyeOff = () => (
   <svg
@@ -122,6 +122,9 @@ const Login = () => {
           >
             {loading ? intl.SigningIn : intl.LoginButton}
           </button>
+          <Link to="/password-reset" className={styles.resetPasswordLink}>
+            {intl.resetPassword}
+          </Link>
         </form>
       </div>
     </div>

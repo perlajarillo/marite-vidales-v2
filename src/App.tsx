@@ -10,6 +10,11 @@ import SeriesDetail from "./components/Series/SeriesDetail.tsx";
 import Exhibits from "./components/Exhibits/Exhibits.tsx";
 import { Contact } from "./components/Contact/Contact.tsx";
 import Reviews from "./components/Reviews/Reviews";
+import Login from "./Login/Login.tsx";
+import MySeries from "./components/MySeries/MySeries.tsx";
+import MyBiography from "./components/MyBiography/MyBiography.tsx";
+import MyReviews from "./components/MyReviews/MyReviews.tsx";
+import MyExhibits from "./components/MyExhibits/MyExhibits.tsx";
 
 const App: React.FC = () => {
   return (
@@ -25,6 +30,11 @@ const App: React.FC = () => {
           <Route path="/exhibits" element={<Exhibits />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/myseries" element={<MySeries />} />
+          <Route path="/myexhibits" element={<MyExhibits />} />
+          <Route path="/myreviews" element={<MyReviews />} />
+          <Route path="/mybiography" element={<MyBiography />} />
         </Routes>
       </main>
     </>

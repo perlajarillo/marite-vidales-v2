@@ -1,0 +1,131 @@
+@reference "tailwindcss";
+
+@layer components {
+  .unauthorizedContainer {
+    @apply flex h-screen w-full flex-col items-center justify-center bg-[#fbfbfa] text-[#111111] antialiased select-none overflow-x-hidden;
+  }
+
+  .unauthorizedContent {
+    @apply h-screen flex flex-col items-center md:justify-center w-full pt-8 md:pt-0;
+  }
+
+  .squiggleSvg {
+    @apply hidden;
+  }
+
+  .keyStage {
+    @apply relative h-[18rem] w-[8rem];
+  }
+
+  .keyStageInner {
+    @apply relative h-full w-[8rem];
+    animation: 0.35s infinite normal;
+  }
+
+  .keyHead {
+    @apply relative z-10 h-[8rem] w-[8rem] rounded-full bg-[#FDD835] shadow-[0.85rem_0_0_#c8a400];
+  }
+
+  .keyHeadRing {
+    @apply absolute left-[3.5rem] top-[1.5rem] h-[1rem] w-[1rem] rounded-full bg-white shadow-[inset_0.5rem_0.1rem_0_#c8a400];
+  }
+
+  .eyeLeft,
+  .eyeRight {
+    @apply absolute h-[0.75rem] w-[0.75rem] rounded-full bg-[#111111];
+  }
+
+  .eyeLeft {
+    left: 1.5rem;
+    top: 4.5rem;
+  }
+
+  .eyeRight {
+    left: 5rem;
+    top: 4.5rem;
+  }
+
+  .eyeHighlight {
+    @apply absolute left-[0.15rem] top-[0.15rem] h-[0.15rem] w-[0.15rem] rounded-full bg-white;
+    animation: scale 0.35s linear infinite alternate;
+  }
+
+  .eyeHighlightDelay {
+    @apply absolute left-[0.35rem] top-[0.35rem] h-[0.25rem] w-[0.25rem] rounded-full bg-white;
+    animation: scale 0.25s linear infinite alternate;
+  }
+
+  .mouth {
+    @apply absolute left-[2.85rem] top-[5rem] h-[1.25rem] w-[1.25rem] rounded-full border-[0.2rem] border-[#111111] border-b-transparent border-l-transparent;
+    transform: rotate(-45deg);
+    animation: sniff 2s linear infinite alternate;
+  }
+
+  .keyBody {
+    @apply absolute left-[2.5rem] top-[7rem] h-[9rem] w-[3rem] bg-[#FDD835] shadow-[1rem_0_0_#c8a400];
+  }
+
+  .keyBodyShadow {
+    @apply absolute left-[1rem] top-[2rem] z-20 h-[8.5rem] w-[0.45rem] rounded-[1rem] bg-[#c8a400]/50;
+  }
+
+  .keyToothBase {
+    @apply absolute top-[2rem] left-[2rem] w-[2rem] h-[2rem] bg-[#FDD835] shadow-[0.5rem_-0.5rem_0_#c8a400] rotate-45;
+  }
+
+  .keyToothOne {
+    @apply absolute top-[2rem] left-[2rem] w-[2rem] h-[2rem] bg-[#FDD835] shadow-[0.5rem_-0.5rem_0_#c8a400] rotate-45;
+  }
+
+  .keyToothTwo {
+    @apply absolute left-[2rem] top-[4.5rem] h-[1.5rem] w-[1.5rem] bg-[#FDD835] shadow-[0.5rem_-0.5rem_0_#c8a400] rotate-45;
+  }
+
+  .keyToothThree {
+    @apply absolute top-[6rem] left-[2rem] w-[1.75rem] h-[1.75rem] bg-[#FDD835] shadow-[0.5rem_-0.5rem_0_#c8a400] rotate-45;
+  }
+
+  .keyArmLeft {
+    @apply absolute left-[1.9rem] top-[1rem] h-[4.55rem] w-[1.25rem] rounded-full border-[0.2rem] border-[#111111] border-b-transparent border-t-transparent border-l-transparent;
+  }
+
+  .keyArmRight {
+    @apply absolute left-[-0.5rem] top-[1rem] h-[4.55rem] w-[1.25rem] rounded-full border-[0.2rem] border-[#111111] border-b-transparent border-t-transparent border-r-transparent;
+  }
+
+  .keyBottomTip {
+    @apply absolute top-full h-[2rem] w-[3rem] rounded-b-[80%_25%] bg-[#FDD835] shadow-[1rem_0_0_#c8a400];
+  }
+
+  .title {
+    @apply pb-[1rem] text-[2rem] font-bold uppercase tracking-wide;
+  }
+
+  .subtitle {
+    @apply text-[1.5rem] font-light;
+  }
+
+  .goToHomeButton {
+    @apply mt-4 rounded bg-[#424242] px-4 py-2 text-white transition-colors duration-300 hover:cursor-pointer hover:bg-gray-600;
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.4);
+  }
+}
+
+@keyframes sniff {
+  0%,
+  70%,
+  100% {
+    transform: translateY(0) rotate(-45deg);
+  }
+  75% {
+    transform: translateY(-5%) rotate(-45deg);
+  }
+}

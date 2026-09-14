@@ -2,7 +2,7 @@ import { NavLink } from "react-router";
 //TODO: import { useTranslation } from "react-i18next";
 import intl from "../../locales/en.json";
 import styles from "./Sidebar.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   EmailIcon,
   FacebookIcon,
@@ -32,6 +32,10 @@ const Sidebar: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(
     getActiveIndexFromPath(location.pathname),
   );
+
+  useEffect(() => {
+    setActiveIndex(getActiveIndexFromPath(location.pathname));
+  }, [location.pathname]);
 
   const year = new Date().getFullYear();
   const { user, logout } = useAuth();

@@ -58,5 +58,7 @@
   "LogoutButton": "Logout",
   "LogoutSuccess": "Logout successful! Redirecting...",
   "LoginRequired": "You must be logged in to view this page.",
-  "welcomeBack": "Welcome Back"
+  "welcomeBack": "Welcome Back",
+  "onlyAdminCanAccess": "Sorry, only authorized users can access this content.",
+  "goToHome": "Go to Home"
 }

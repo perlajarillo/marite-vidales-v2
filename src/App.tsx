@@ -11,6 +11,10 @@ import Exhibits from "./components/Exhibits/Exhibits.tsx";
 import { Contact } from "./components/Contact/Contact.tsx";
 import Reviews from "./components/Reviews/Reviews";
 import Login from "./Login/Login.tsx";
+import MySeries from "./components/MySeries/MySeries.tsx";
+import MyBiography from "./components/MyBiography/MyBiography.tsx";
+import MyReviews from "./components/MyReviews/MyReviews.tsx";
+import MyExhibits from "./components/MyExhibits/MyExhibits.tsx";
 
 const App: React.FC = () => {
   return (
@@ -27,10 +31,10 @@ const App: React.FC = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/myseries" element={<UnderConstruction />} />
-          <Route path="/myexhibits" element={<UnderConstruction />} />
-          <Route path="/myreviews" element={<UnderConstruction />} />
-          <Route path="/mybiography" element={<UnderConstruction />} />
+          <Route path="/myseries" element={<MySeries />} />
+          <Route path="/myexhibits" element={<MyExhibits />} />
+          <Route path="/myreviews" element={<MyReviews />} />
+          <Route path="/mybiography" element={<MyBiography />} />
         </Routes>
       </main>
     </>

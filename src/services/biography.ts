@@ -1,11 +1,17 @@
-import { ref, get } from "firebase/database";
-import { db } from "./firebase";
+import {
+  getDownloadURL,
+  ref as storageRef,
+  uploadBytes,
+} from "firebase/storage";
+import { get, ref, update } from "firebase/database";
+import { db, storage } from "./firebase";
+import type { Biography } from "../types/biography";
 
 /**
  * Fetches the biography data once from the Realtime Database.
  * @returns {Promise<any>} The parsed biography data payload
  */
-export async function getBiography() {
+export async function getBiography(): Promise<Biography | null> {
   try {
     // 1. Create a reference pointing to the 'biography' node
     const biographyRef = ref(db, "biography");
@@ -23,4 +29,19 @@ export async function getBiography() {
     console.error("Error fetching biography:", error);
     throw error;
   }
+}
+
+export async function saveBiographySummary(
+  summary: string,
+  picture?: File,
+): Promise<void> {
+  const biography: Partial<Biography> = { summary };
+
+  if (picture) {
+    const pictureRef = storageRef(storage, `biography/${picture.name}`);
+    const uploadedPicture = await uploadBytes(pictureRef, picture);
+    biography.pictureUrl = await getDownloadURL(uploadedPicture.ref);
+  }
+
+  await update(ref(db, "biography"), biography);
 }

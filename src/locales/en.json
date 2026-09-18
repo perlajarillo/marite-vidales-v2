@@ -18,6 +18,7 @@
   "visualArtist": "Visual Artist",
   "openingLine": "Marité Vidales explores the boundaries between abstract expressionism and contemporary landscape, inviting viewers to find stillness in movement.",
   "noDataAvailable": "No data available.",
+  "failedToLoadBiography": "Unable to load the biography. Please try again later.",
   "noEducationAdded": "No education has been added yet!",
   "education": "Education",
   "noExhibitsAdded": "No exhibits have been added yet!",
@@ -66,5 +67,17 @@
   "sending": "Sending...",
   "sendResetLink": "Send Reset Link",
   "resetLinkSent": "A password reset link has been sent to your email.",
-  "failedToResetPassword": "Failed to reset password. Please try again."
+  "failedToResetPassword": "Failed to reset password. Please try again.",
+  "editSummaryPhoto": "Edit summary and/or photo",
+  "updateSummaryProfileImg": "Update the statement and optional profile image.",
+  "artistStatement": "Artist statement",
+  "profileImage": "Profile image",
+  "allowedFileType": "JPG or PNG, less than 8 MB.",
+  "cancel": "Cancel",
+  "saveChanges": "Save Changes",
+  "saving": "Saving...",
+  "imageShouldBeSmaller": "The image must be smaller than 8 MB.",
+  "onlyTypesAllowed": "Only PNG and JPG/JPEG files are  allowed.",
+  "artistStatementRequired": "The artist statement is required.",
+  "biographySectionNotUpdated": "Biography section could not be updated. Please try again."
 }

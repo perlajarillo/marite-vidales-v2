@@ -1,6 +1,6 @@
 import { useAuth } from "../Login/AuthContext";
-import UnderConstruction from "../UnderConstruction/UnderConstruction";
 import Unauthorized from "../Unauthorized/Unauthorized";
+import SetBiography from "./SetBiography.tsx";
 
 const MyBiography = () => {
   const { user } = useAuth();
@@ -8,8 +8,8 @@ const MyBiography = () => {
     return <Unauthorized />;
   }
   return (
-    <div>
-      <UnderConstruction />
+    <div className="pt-8 md:pt-0">
+      <SetBiography />
     </div>
   );
 };

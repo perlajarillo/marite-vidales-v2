@@ -3,9 +3,9 @@ import {
   ref as storageRef,
   uploadBytes,
 } from "firebase/storage";
-import { get, ref, update } from "firebase/database";
+import { get, push, ref, set, update } from "firebase/database";
 import { db, storage } from "./firebase";
-import type { Biography } from "../types/biography";
+import type { Biography, EducationItem } from "../types/biography";
 
 /**
  * Fetches the biography data once from the Realtime Database.
@@ -44,4 +44,27 @@ export async function saveBiographySummary(
   }
 
   await update(ref(db, "biography"), biography);
+}
+
+export async function saveBiographyEducation(
+  education: Record<string, EducationItem>,
+): Promise<void> {
+  const updatedEducation: Partial<Biography> = { education };
+
+  await update(ref(db, "biography"), updatedEducation);
+}
+
+export async function createEducationItem(education: EducationItem) {
+  const educationListRef = ref(db, "biography/education");
+  const newRef = push(educationListRef);
+  await set(newRef, education);
+  return newRef.key;
+}
+
+export async function updateEducationItem(
+  key: string,
+  education: Record<string, EducationItem>,
+) {
+  const itemRef = ref(db, `biography/education/${key}`);
+  await update(itemRef, education);
 }

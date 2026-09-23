@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent, type SubmitEvent } from "react";
+import { useState, type ChangeEvent, type SubmitEvent } from "react";
 import { useAuth } from "../Login/AuthContext";
 import { saveBiographySummary } from "../../services/biography";
 import biographyStyles from "../Biography/Biography.module.css";
@@ -8,109 +8,101 @@ import BiographySkeleton from "../Biography/BiographySkeleton";
 import intl from "../../locales/en.json";
 
 const MAX_IMAGE_SIZE = 8 * 1024 * 1024;
-// Allowed types and extensions
 const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg"];
 const ALLOWED_EXTENSIONS = [".png", ".jpg", ".jpeg"];
 
 const SetBiography = () => {
   const { user } = useAuth();
   const {
-    error,
-    setError,
+    summary: savedSummary,
+    picturePreview: savedPicture,
     loading,
-    summary,
-    setSummary,
-    picturePreview,
-    setPicturePreview,
+    fetchData,
   } = useBiography();
 
-  const [picture, setPicture] = useState<File>();
-  const [saving, setSaving] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+
+  const [draftSummary, setDraftSummary] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [filePreview, setFilePreview] = useState<string | null>(null);
+
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState("");
 
-  useEffect(() => {
-    return () => {
-      if (picturePreview?.startsWith("blob:")) {
-        URL.revokeObjectURL(picturePreview);
-      }
-    };
-  }, [picturePreview]);
-
-  const handlePictureChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedPicture = event.target.files?.[0];
-    const fileName = selectedPicture?.name.toLowerCase();
-
-    if (!selectedPicture) return;
-
-    setError(null);
-    //Validate picture size
-    if (selectedPicture.size > MAX_IMAGE_SIZE) {
-      setPicture(undefined);
-      setError(new Error(intl.imageShouldBeSmaller));
-      event.target.value = ""; // Reset the input
-
-      return;
-    }
-
-    // Validate file type
-    const isForbiddenType = !ALLOWED_TYPES.includes(selectedPicture.type);
-    const isForbiddenExt =
-      fileName && !ALLOWED_EXTENSIONS.some((ext) => fileName.endsWith(ext));
-    if (isForbiddenType || isForbiddenExt) {
-      setPicture(undefined);
-      setError(new Error(intl.onlyTypesAllowed));
-      event.target.value = ""; // Reset the input
-      return;
-    }
-
-    setPicture(selectedPicture);
-    setPicturePreview(URL.createObjectURL(selectedPicture));
-  };
-
-  const cancelEdit = () => {
-    setIsEditorOpen(false);
+  const handleOpenEdit = () => {
+    setDraftSummary(savedSummary ?? "");
+    setFilePreview(savedPicture ?? null);
+    setSelectedFile(null);
     setError(null);
     setSuccess("");
-    setPicture(undefined);
-    setPicturePreview(picturePreview || "");
-    setSummary(summary ?? "");
+    setIsEditorOpen(true);
+  };
+
+  const handleCloseEdit = () => {
+    if (filePreview && filePreview.startsWith("blob:")) {
+      URL.revokeObjectURL(filePreview);
+    }
+    setIsEditorOpen(false);
+    setSelectedFile(null);
+    setFilePreview(null);
+    setError(null);
+  };
+
+  const handlePictureChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const fileName = file.name.toLowerCase();
+    const isForbiddenType = !ALLOWED_TYPES.includes(file.type);
+    const isForbiddenExt = !ALLOWED_EXTENSIONS.some((ext) =>
+      fileName.endsWith(ext),
+    );
+
+    if (file.size > MAX_IMAGE_SIZE) {
+      setError(intl.imageShouldBeSmaller);
+      event.target.value = "";
+      return;
+    }
+
+    if (isForbiddenType || isForbiddenExt) {
+      setError(intl.onlyTypesAllowed);
+      event.target.value = "";
+      return;
+    }
+
+    setError(null);
+    setSelectedFile(file);
+    setFilePreview(URL.createObjectURL(file));
   };
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!summary.trim()) {
-      setError(new Error(intl.artistStatementRequired));
+    if (!draftSummary.trim()) {
+      setError(intl.artistStatementRequired);
       return;
     }
 
     setSaving(true);
     setError(null);
-    setSuccess("");
 
     try {
-      await saveBiographySummary(summary.trim(), picture);
-      setPicture(undefined);
-      setIsEditorOpen(false);
+      await saveBiographySummary(
+        draftSummary.trim(),
+        selectedFile || undefined,
+      );
+      if (fetchData) await fetchData(); // Re-fetch or let cache update
       setSuccess("Summary and/or photo updated.");
+      handleCloseEdit();
     } catch {
-      setError(new Error(intl.biographySectionNotUpdated));
+      setError(intl.biographySectionNotUpdated);
     } finally {
       setSaving(false);
     }
   };
 
-  const onClickEdit = () => {
-    setSummary(summary ?? "");
-    setIsEditorOpen(true);
-    setError(null);
-    setSuccess("");
-  };
-
   if (!user) return null;
-  if (loading) {
-    return <BiographySkeleton />;
-  }
+  if (loading) return <BiographySkeleton />;
 
   return (
     <div className={biographyStyles.biographyContainer}>
@@ -118,19 +110,19 @@ const SetBiography = () => {
         {success && <p className={styles.successMessage}>{success}</p>}
         <div className={biographyStyles.photoContainer}>
           <img
-            src={picturePreview}
+            src={savedPicture}
             alt="Marite Vidales"
             className={biographyStyles.photo}
           />
         </div>
         <div>
           <p className={biographyStyles.summaryText}>
-            {summary || "No artist statement has been added yet."}
+            {savedSummary || "No artist statement has been added yet."}
           </p>
           <button
             type="button"
-            onClick={onClickEdit}
-            className={`${styles.editSummaryPhotoButton} bg-brand-primary hover:bg-brand-secondary focus:outline-brand-primary`}
+            onClick={handleOpenEdit}
+            className={`${styles.editSummaryPhotoButton} bg-brand-primary hover:bg-brand-secondary`}
           >
             {intl.editSummaryPhoto}
           </button>
@@ -138,24 +130,11 @@ const SetBiography = () => {
       </section>
 
       {isEditorOpen && (
-        <div
-          className={styles.editorContainer}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="edit-biography-title"
-        >
+        <div className={styles.editorContainer} role="dialog" aria-modal="true">
           <form onSubmit={handleSubmit} className={styles.editorForm}>
-            <div>
-              {error && <p className={styles.errorMessage}>{error.message}</p>}
-            </div>
-            <div>
-              <h2 id="edit-biography-title" className={styles.formTitle}>
-                {intl.editSummaryPhoto}
-              </h2>
-              <p className={styles.formSubtitle}>
-                {intl.updateSummaryProfileImg}
-              </p>
-            </div>
+            {error && <p className={styles.errorMessage}>{error}</p>}
+            <h2 className={styles.formTitle}>{intl.editSummaryPhoto}</h2>
+
             <div className={styles.summaryAndPictureGrid}>
               <div>
                 <label
@@ -166,8 +145,8 @@ const SetBiography = () => {
                 </label>
                 <textarea
                   id="biography-summary"
-                  value={summary}
-                  onChange={(event) => setSummary(event.target.value)}
+                  value={draftSummary}
+                  onChange={(e) => setDraftSummary(e.target.value)}
                   required
                   rows={12}
                   className={styles.textArea}
@@ -176,7 +155,7 @@ const SetBiography = () => {
               </div>
               <div className="space-y-3">
                 <img
-                  src={picturePreview}
+                  src={filePreview || savedPicture}
                   alt="Selected profile preview"
                   className="aspect-square w-full object-cover"
                 />
@@ -199,7 +178,7 @@ const SetBiography = () => {
             <div className={styles.actionBar}>
               <button
                 type="button"
-                onClick={() => cancelEdit()}
+                onClick={handleCloseEdit}
                 className={styles.cancelButton}
               >
                 {intl.cancel}

@@ -1,6 +1,7 @@
 import { useAuth } from "../Login/AuthContext";
 import Unauthorized from "../Unauthorized/Unauthorized";
 import SetBiography from "./SetBiography.tsx";
+import SetEducation from "./SetEducation.tsx";
 
 const MyBiography = () => {
   const { user } = useAuth();
@@ -10,6 +11,7 @@ const MyBiography = () => {
   return (
     <div className="pt-8 md:pt-0">
       <SetBiography />
+      <SetEducation />
     </div>
   );
 };

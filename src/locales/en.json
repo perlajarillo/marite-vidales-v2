@@ -79,5 +79,13 @@
   "imageShouldBeSmaller": "The image must be smaller than 8 MB.",
   "onlyTypesAllowed": "Only PNG and JPG/JPEG files are  allowed.",
   "artistStatementRequired": "The artist statement is required.",
-  "biographySectionNotUpdated": "Biography section could not be updated. Please try again."
+  "biographySectionNotUpdated": "Biography section could not be updated. Please try again.",
+  "addEducation": "Add education",
+  "changeOrder": "Save order change",
+  "edit": "Edit",
+  "delete": "Delete",
+  "save": "Save",
+  "editEducation": "Edit education",
+  "deleteEducation": "DeleteEducation",
+  "allFieldsRequired": "All fields are required."
 }

@@ -11,7 +11,7 @@ const MAX_IMAGE_SIZE = 8 * 1024 * 1024;
 const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg"];
 const ALLOWED_EXTENSIONS = [".png", ".jpg", ".jpeg"];
 
-const SetBiography = () => {
+const SummaryAndPicture = () => {
   const { user } = useAuth();
   const {
     summary: savedSummary,
@@ -198,4 +198,4 @@ const SetBiography = () => {
   );
 };
 
-export default SetBiography;
+export default SummaryAndPicture;

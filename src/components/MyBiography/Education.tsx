@@ -7,13 +7,15 @@ import { useFieldArray, useForm } from "react-hook-form";
 import {
   createEducationItem,
   saveBiographyEducation,
+  updateEducationItem,
 } from "../../services/biography";
 import { toRecord } from "../../utilities/records";
 import { type EducationForm, type EducationItem } from "../../types/biography";
 import FormDialog from "../Common/Dialog/FormDialog";
 import { educationFields } from "./educationMetadata";
+import styles from "./MyBiography.module.css";
 
-const emptyForm: EducationForm = {
+const emptyEducationItem: EducationItem = {
   field: "",
   degree: "",
   institution: "",
@@ -21,92 +23,120 @@ const emptyForm: EducationForm = {
   year: "",
   id: "",
   index: 0,
+};
+const emptyForm: EducationForm = {
+  ...emptyEducationItem,
   recordKey: "",
 };
 
-const SetEducation = () => {
+const Education = () => {
   const { user } = useAuth();
   // Server/hook data
   const { education: savedEducation, loading, fetchData } = useBiography();
+  // State
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [activeKey, setActiveKey] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [indexToRemove, setIndexToRemove] = useState<number>();
+  const [saveAfterRemoving, setSaveAfterRemoving] = useState<boolean>(false);
+  const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [editingRecord, setEditingRecord] = useState<EducationItem | null>(
+    null,
+  );
 
   const {
     register,
     control,
-    handleSubmit,
     reset,
-    watch,
     formState: { isDirty },
   } = useForm({
     defaultValues: { education: [emptyForm] },
-    mode: "onSubmit",
+    mode: "onChange",
   });
 
-  const { fields, remove, swap, insert } = useFieldArray({
+  const { fields, remove, swap } = useFieldArray({
     control,
     name: "education",
   });
-  //console.log(JSON.stringify(fields));
-  // console.log(isDirty);
 
   useEffect(() => {
-    // 1. Transform Record<string, EducationItem> -> FormEducationItem[]
     const defaultValuesArray = Object.entries(savedEducation)
       .map(([key, value]) => ({
-        recordKey: key, // preserve the original dictionary key
         ...value,
+        recordKey: key, // preserve the original dictionary key
       }))
       .sort((a, b) => a.index - b.index);
     reset({ education: defaultValuesArray });
   }, [savedEducation]);
 
-  const [editingKey, setEditingKey] = useState<string | null>(null);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [deleteKey, setDeleteKey] = useState<string | null>(null);
-  const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-
   const closeForm = () => {
     setIsFormOpen(false);
-    setEditingKey(null);
+    setEditingRecord(null);
     setError("");
+    setActiveKey(null);
   };
 
   const openAddForm = () => {
-    setEditingKey(null);
-    // setForm(emptyForm);
+    setEditingRecord(null);
     setError("");
     setIsFormOpen(true);
   };
 
-  const openEditForm = (key: string) => {
-    const item = savedEducation[key];
-    if (!item) return;
-    setEditingKey(key);
+  const openEditForm = (record: EducationItem, recordKey: string) => {
+    if (!record) return;
+    setEditingRecord(record);
+    setActiveKey(recordKey);
     setError("");
     setIsFormOpen(true);
   };
 
   const addEducation = async (data: EducationItem) => {
     try {
-      createEducationItem(data);
-      setMessage("Education added.");
+      createEducationItem({ ...data, index: fields.length });
+      fetchData();
+      setMessage(intl.educationAdded);
       closeForm();
     } catch {
-      setError("Something went wrong. Try again.");
+      setError(intl.somethingWentWrong);
+    }
+  };
+
+  const editEducation = async (data: EducationItem) => {
+    try {
+      if (activeKey) {
+        console.log(activeKey);
+        console.log(data);
+        updateEducationItem(activeKey, data);
+        fetchData();
+        closeForm();
+      }
+      setMessage(intl.educationUpdated);
+    } catch {
+      setError(intl.somethingWentWrong);
     }
   };
 
   const handleDelete = async () => {
-    if (!deleteKey) return;
+    if (indexToRemove === undefined) return;
     try {
-      // await remove(ref(db, `biography/education/${deleteKey}`));
-      setDeleteKey(null);
-      setMessage("Education deleted.");
+      remove(indexToRemove);
+      setIsDeleting(false);
+      setSaveAfterRemoving(true);
     } catch {
-      setMessage("Something went wrong. Try again.");
+      setMessage(intl.somethingWentWrong);
     }
   };
+
+  useEffect(() => {
+    if (saveAfterRemoving) {
+      handleSaveOrder();
+      setIndexToRemove(undefined);
+      setMessage(intl.educationDeleted);
+      setSaveAfterRemoving(false);
+    }
+  }, [saveAfterRemoving, fields]);
 
   const handleSaveOrder = async () => {
     try {
@@ -114,32 +144,27 @@ const SetEducation = () => {
         return { ...field, index: i };
       });
 
-      console.log(updatedEducationList);
       const updatedEducation = toRecord(updatedEducationList, "recordKey");
-      console.log(updatedEducation);
-
       saveBiographyEducation(updatedEducation);
       setIsOrderDialogOpen(false);
       fetchData();
-      setMessage("Education order updated.");
+      setMessage(intl.educationOrderUpdated);
     } catch {
-      setMessage("Something went wrong. Try again.");
+      setMessage(intl.somethingWentWrong);
     }
   };
 
   if (!user || loading) return null;
 
   return (
-    <section className="mx-auto max-w-4xl space-y-6 rounded-lg bg-white p-6 shadow-sm">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-2xl font-semibold text-brand-primary">
-          {intl.education}
-        </h2>
-        <div className="flex flex-wrap gap-2">
+    <section className={styles.educationSection}>
+      <div className={styles.educationHeader}>
+        <h2 className={styles.educationTitle}>{intl.education}</h2>
+        <div className={styles.educationHeaderActionBar}>
           <button
             type="button"
             onClick={openAddForm}
-            className="rounded bg-brand-primary px-4 py-2 text-sm font-semibold text-white hover:bg-brand-secondary cursor-pointer"
+            className={styles.educationPrimaryButton}
           >
             {intl.addEducation}
           </button>
@@ -147,7 +172,7 @@ const SetEducation = () => {
             <button
               type="button"
               onClick={() => setIsOrderDialogOpen(true)}
-              className="rounded border border-brand-primary px-4 py-2 text-sm font-semibold text-brand-primary hover:bg-slate-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:border-0 disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer"
+              className={styles.educationSecondaryButton}
               disabled={!isDirty}
             >
               {intl.changeOrder}
@@ -155,18 +180,15 @@ const SetEducation = () => {
           )}
         </div>
       </div>
-      {message && (
-        <p className="rounded bg-green-50 px-3 py-2 text-sm text-green-700">
-          {message}
-        </p>
-      )}
+      {message && <p className={styles.successMessage}>{message}</p>}
+      {error && <span className={styles.errorMessage}>{error}</span>}
       {fields.length === 0 ? (
-        <p className="text-sm text-slate-600">{intl.noEducationAdded}</p>
+        <p className={styles.missingInformationMessage}>
+          {intl.noEducationAdded}
+        </p>
       ) : (
         <div className="divide-y divide-slate-200">
           {fields.map((field, index) => {
-            //  const item = savedEducation[key];
-            // if (!item) return null;
             return (
               <article
                 key={field.recordKey}
@@ -193,7 +215,7 @@ const SetEducation = () => {
                   {...register(`education.${index}.country`)}
                 />
                 <input type="hidden" {...register(`education.${index}.year`)} />
-                <p className="min-w-0 flex-1 text-sm leading-6 text-slate-700">
+                <p className={styles.listItem}>
                   <span className="font-semibold">{index + 1}. </span>
                   {field.field}. {field.degree}. {field.institution}.{" "}
                   {field.country}. {field.year}
@@ -215,15 +237,21 @@ const SetEducation = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => openEditForm(field.recordKey)}
-                  className="rounded border border-brand-primary px-3 py-2 text-sm text-brand-primary hover:bg-slate-50 cursor-pointer"
+                  onClick={() => {
+                    const { recordKey, ...rest } = field;
+                    openEditForm(rest, recordKey);
+                  }}
+                  className={styles.editButton}
                 >
                   {intl.edit}
                 </button>
                 <button
                   type="button"
-                  onClick={() => setDeleteKey(field.recordKey)}
-                  className="rounded bg-red-700 px-3 py-2 text-sm text-white hover:bg-red-800 cursor-pointer"
+                  onClick={() => {
+                    setIsDeleting(true);
+                    setIndexToRemove(index);
+                  }}
+                  className={styles.deleteButton}
                 >
                   {intl.delete}
                 </button>
@@ -236,25 +264,27 @@ const SetEducation = () => {
         isOpen={isFormOpen}
         title={intl.addEducation}
         subtitle={intl.allFieldsRequired}
-        defaultValues={emptyForm}
+        defaultValues={editingRecord || emptyEducationItem}
         fields={educationFields}
-        onSave={addEducation}
+        onSave={activeKey != null ? editEducation : addEducation}
         onCancel={() => setIsFormOpen(false)}
       />
 
-      {(deleteKey || isOrderDialogOpen) && (
+      {(isDeleting || isOrderDialogOpen) && (
         <ConfirmDialog
           dialogTitle={
-            deleteKey ? "Delete education entry?" : "Change education order?"
+            isDeleting ? intl.deleteEducationEntry : intl.changeEducationOrder
           }
           dialogBody={
-            deleteKey
-              ? "This action cannot be undone."
-              : "Are you sure you want to change the entries order?"
+            isDeleting
+              ? intl.actionCanNotBeUndone
+              : intl.areYouSureToUpdateOrder
           }
-          confirmAction={deleteKey ? handleDelete : handleSaveOrder}
+          confirmAction={isDeleting ? handleDelete : handleSaveOrder}
           cancelAction={() => {
-            setDeleteKey(null);
+            setIsDeleting(false);
+            setActiveKey(null);
+            setIndexToRemove(undefined);
             setIsOrderDialogOpen(false);
           }}
         />
@@ -263,4 +293,4 @@ const SetEducation = () => {
   );
 };
 
-export default SetEducation;
+export default Education;

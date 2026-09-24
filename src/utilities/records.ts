@@ -4,9 +4,11 @@
 export function toRecord<T, K extends keyof T>(
   array: T[],
   key: K,
-): Record<(string & T[K]) | (number & T[K]), T> {
-  return Object.fromEntries(array.map((item) => [item[key], item])) as Record<
-    (string & T[K]) | (number & T[K]),
-    T
-  >;
+): Record<(string & T[K]) | (number & T[K]), Omit<T, K>> {
+  return Object.fromEntries(
+    array.map((item) => {
+      const { [key]: indexKey, ...rest } = item;
+      return [indexKey, rest];
+    }),
+  ) as Record<(string & T[K]) | (number & T[K]), Omit<T, K>>;
 }

@@ -63,7 +63,7 @@ export async function createEducationItem(education: EducationItem) {
 
 export async function updateEducationItem(
   key: string,
-  education: Record<string, EducationItem>,
+  education: EducationItem,
 ) {
   const itemRef = ref(db, `biography/education/${key}`);
   await update(itemRef, education);

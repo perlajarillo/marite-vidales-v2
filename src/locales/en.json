@@ -86,6 +86,15 @@
   "delete": "Delete",
   "save": "Save",
   "editEducation": "Edit education",
-  "deleteEducation": "DeleteEducation",
-  "allFieldsRequired": "All fields are required."
+  "deleteEducation": "Delete Education item",
+  "allFieldsRequired": "All fields are required.",
+  "educationAdded": "Education item added",
+  "somethingWentWrong": "Something went wrong. Try again.",
+  "educationUpdated": "Education item updated.",
+  "educationDeleted": "Education deleted.",
+  "educationOrderUpdated": "Education order updated.",
+  "deleteEducationEntry": "Delete education entry?",
+  "changeEducationOrder": "Change education order?",
+  "actionCanNotBeUndone": "This action cannot be undone.",
+  "areYouSureToUpdateOrder": "Are you sure you want to change the entries order?"
 }

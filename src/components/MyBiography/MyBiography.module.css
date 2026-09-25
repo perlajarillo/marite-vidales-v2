@@ -49,22 +49,22 @@
   .saveButton {
     @apply px-5  text-sm rounded-lg bg-gray-700 py-3 font-semibold text-white transition hover:bg-gray-500 disabled:opacity-50 cursor-pointer;
   }
-  .educationSection {
+  .biographySection {
     @apply mx-auto max-w-4xl space-y-6 rounded-lg bg-white p-6 shadow-sm;
   }
-  .educationHeader {
+  .biographySectionHeader {
     @apply flex flex-wrap items-center justify-between gap-3;
   }
-  .educationTitle {
+  .biographySectionTitle {
     @apply text-2xl font-semibold;
   }
-  .educationHeaderActionBar {
+  .biographySectionHeaderActionBar {
     @apply flex flex-wrap gap-2;
   }
-  .educationPrimaryButton {
+  .primaryButton {
     @apply rounded bg-gray-700 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-500 cursor-pointer;
   }
-  .educationSecondaryButton {
+  .secondaryButton {
     @apply rounded border border-gray-700 px-4 py-2 text-sm font-semibold hover:bg-slate-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:border-0 disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer;
   }
   .missingInformationMessage {

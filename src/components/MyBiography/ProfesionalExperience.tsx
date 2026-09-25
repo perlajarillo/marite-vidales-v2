@@ -5,34 +5,35 @@ import ConfirmDialog from "../Common/Dialog/ConfirmDialog";
 import intl from "../../locales/en.json";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
-  createEducationItem,
-  saveBiographyEducation,
-  updateEducationItem,
+  createExperienceItem,
+  saveBiographyExperience,
+  updateExperienceItem,
 } from "../../services/biography";
 import { toRecord } from "../../utilities/records";
-import { type EducationForm, type EducationItem } from "../../types/biography";
+import {
+  type ExperienceForm,
+  type ExperienceItem,
+} from "../../types/biography";
 import FormDialog from "../Common/Dialog/FormDialog";
-import { educationFields } from "./educationMetadata";
+import { experienceFields } from "./experienceMetadata";
 import styles from "./MyBiography.module.css";
 
-const emptyEducationItem: EducationItem = {
-  field: "",
-  degree: "",
+const emptyExperienceItem: ExperienceItem = {
+  position: "",
   institution: "",
   country: "",
-  year: "",
-  id: "",
+  dates: "",
   index: 0,
 };
-const emptyForm: EducationForm = {
-  ...emptyEducationItem,
+const emptyForm: ExperienceForm = {
+  ...emptyExperienceItem,
   recordKey: "",
 };
 
-const Education = () => {
+const ProfessionalExperience = () => {
   const { user } = useAuth();
   // Server/hook data
-  const { education: savedEducation, loading, fetchData } = useBiography();
+  const { experience: savedExperience, loading, fetchData } = useBiography();
   // State
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [activeKey, setActiveKey] = useState<string | null>(null);
@@ -42,7 +43,7 @@ const Education = () => {
   const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [editingRecord, setEditingRecord] = useState<EducationItem | null>(
+  const [editingRecord, setEditingRecord] = useState<ExperienceItem | null>(
     null,
   );
 
@@ -52,24 +53,24 @@ const Education = () => {
     reset,
     formState: { isDirty },
   } = useForm({
-    defaultValues: { education: [emptyForm] },
+    defaultValues: { experience: [emptyForm] },
     mode: "onChange",
   });
 
   const { fields, remove, swap } = useFieldArray({
     control,
-    name: "education",
+    name: "experience",
   });
 
   useEffect(() => {
-    const defaultValuesArray = Object.entries(savedEducation)
+    const defaultValuesArray = Object.entries(savedExperience)
       .map(([key, value]) => ({
         ...value,
         recordKey: key, // preserve the original dictionary key
       }))
       .sort((a, b) => a.index - b.index);
-    reset({ education: defaultValuesArray });
-  }, [savedEducation]);
+    reset({ experience: defaultValuesArray });
+  }, [savedExperience]);
 
   const closeForm = () => {
     setIsFormOpen(false);
@@ -84,7 +85,7 @@ const Education = () => {
     setIsFormOpen(true);
   };
 
-  const openEditForm = (record: EducationItem, recordKey: string) => {
+  const openEditForm = (record: ExperienceItem, recordKey: string) => {
     if (!record) return;
     setEditingRecord(record);
     setActiveKey(recordKey);
@@ -92,30 +93,30 @@ const Education = () => {
     setIsFormOpen(true);
   };
 
-  const addEducation = async (data: EducationItem) => {
+  const addExperience = async (data: ExperienceItem) => {
     if (isDirty) {
       handleSaveOrder();
     }
     try {
-      createEducationItem({ ...data, index: fields.length });
+      createExperienceItem({ ...data, index: fields.length });
       fetchData();
-      setMessage(intl.educationAdded);
+      setMessage(intl.experienceAdded);
       closeForm();
     } catch {
       setError(intl.somethingWentWrong);
     }
   };
 
-  const editEducation = async (data: EducationItem) => {
+  const editExperience = async (data: ExperienceItem) => {
     try {
       if (activeKey) {
         console.log(activeKey);
         console.log(data);
-        updateEducationItem(activeKey, data);
+        updateExperienceItem(activeKey, data);
         fetchData();
         closeForm();
       }
-      setMessage(intl.educationUpdated);
+      setMessage(intl.experienceUpdated);
     } catch {
       setError(intl.somethingWentWrong);
     }
@@ -136,22 +137,22 @@ const Education = () => {
     if (saveAfterRemoving) {
       handleSaveOrder();
       setIndexToRemove(undefined);
-      setMessage(intl.educationDeleted);
+      setMessage(intl.experienceDeleted);
       setSaveAfterRemoving(false);
     }
   }, [saveAfterRemoving, fields]);
 
   const handleSaveOrder = async () => {
     try {
-      const updatedEducationList = fields.map((field, i) => {
+      const updatedExperienceList = fields.map((field, i) => {
         return { ...field, index: i };
       });
 
-      const updatedEducation = toRecord(updatedEducationList, "recordKey");
-      saveBiographyEducation(updatedEducation);
+      const updatedExperience = toRecord(updatedExperienceList, "recordKey");
+      saveBiographyExperience(updatedExperience);
       setIsOrderDialogOpen(false);
       fetchData();
-      setMessage(intl.educationOrderUpdated);
+      setMessage(intl.experienceOrderUpdated);
     } catch {
       setMessage(intl.somethingWentWrong);
     }
@@ -162,14 +163,14 @@ const Education = () => {
   return (
     <section className={styles.biographySection}>
       <div className={styles.biographySectionHeader}>
-        <h2 className={styles.biographySectionTitle}>{intl.education}</h2>
+        <h2 className={styles.biographySectionTitle}>{intl.experience}</h2>
         <div className={styles.biographySectionHeaderActionBar}>
           <button
             type="button"
             onClick={openAddForm}
             className={styles.primaryButton}
           >
-            {intl.addEducation}
+            {intl.addExperience}
           </button>
           {fields.length > 1 && (
             <button
@@ -187,7 +188,7 @@ const Education = () => {
       {error && <span className={styles.errorMessage}>{error}</span>}
       {fields.length === 0 ? (
         <p className={styles.missingInformationMessage}>
-          {intl.noEducationAdded}
+          {intl.noProfessionalExperienceAdded}
         </p>
       ) : (
         <div className="divide-y divide-slate-200">
@@ -199,29 +200,28 @@ const Education = () => {
               >
                 <input
                   type="hidden"
-                  {...register(`education.${index}.recordKey`)}
+                  {...register(`experience.${index}.recordKey`)}
                 />
                 <input
                   type="hidden"
-                  {...register(`education.${index}.field`)}
+                  {...register(`experience.${index}.position`)}
                 />
                 <input
                   type="hidden"
-                  {...register(`education.${index}.degree`)}
+                  {...register(`experience.${index}.institution`)}
                 />
                 <input
                   type="hidden"
-                  {...register(`education.${index}.institution`)}
+                  {...register(`experience.${index}.country`)}
                 />
                 <input
                   type="hidden"
-                  {...register(`education.${index}.country`)}
+                  {...register(`experience.${index}.dates`)}
                 />
-                <input type="hidden" {...register(`education.${index}.year`)} />
                 <p className={styles.listItem}>
                   <span className="font-semibold">{index + 1}. </span>
-                  {field.field}. {field.degree}. {field.institution}.{" "}
-                  {field.country}. {field.year}
+                  {field.position}. {field.institution}. {field.country}.{" "}
+                  {field.dates}
                 </p>
                 {/* Swap Actions */}
                 <button
@@ -265,20 +265,20 @@ const Education = () => {
           })}
         </div>
       )}
-      <FormDialog<EducationItem>
+      <FormDialog<ExperienceItem>
         isOpen={isFormOpen}
-        title={intl.addEducation}
+        title={intl.addExperience}
         subtitle={intl.allFieldsRequired}
-        defaultValues={editingRecord || emptyEducationItem}
-        fields={educationFields}
-        onSave={activeKey != null ? editEducation : addEducation}
+        defaultValues={editingRecord || emptyExperienceItem}
+        fields={experienceFields}
+        onSave={activeKey != null ? editExperience : addExperience}
         onCancel={() => setIsFormOpen(false)}
       />
 
       {(isDeleting || isOrderDialogOpen) && (
         <ConfirmDialog
           dialogTitle={
-            isDeleting ? intl.deleteEducationEntry : intl.changeEducationOrder
+            isDeleting ? intl.deleteExperienceEntry : intl.changeExperienceOrder
           }
           dialogBody={
             isDeleting
@@ -298,4 +298,4 @@ const Education = () => {
   );
 };
 
-export default Education;
+export default ProfessionalExperience;

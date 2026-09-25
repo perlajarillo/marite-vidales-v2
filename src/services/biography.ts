@@ -5,7 +5,11 @@ import {
 } from "firebase/storage";
 import { get, push, ref, set, update } from "firebase/database";
 import { db, storage } from "./firebase";
-import type { Biography, EducationItem } from "../types/biography";
+import type {
+  Biography,
+  EducationItem,
+  ExperienceItem,
+} from "../types/biography";
 
 /**
  * Fetches the biography data once from the Realtime Database.
@@ -67,4 +71,27 @@ export async function updateEducationItem(
 ) {
   const itemRef = ref(db, `biography/education/${key}`);
   await update(itemRef, education);
+}
+
+export async function saveBiographyExperience(
+  experience: Record<string, ExperienceItem>,
+): Promise<void> {
+  const updatedExperience: Partial<Biography> = { experience };
+
+  await update(ref(db, "biography"), updatedExperience);
+}
+
+export async function createExperienceItem(experience: ExperienceItem) {
+  const experienceListRef = ref(db, "biography/experience");
+  const newRef = push(experienceListRef);
+  await set(newRef, experience);
+  return newRef.key;
+}
+
+export async function updateExperienceItem(
+  key: string,
+  experience: ExperienceItem,
+) {
+  const itemRef = ref(db, `biography/experience/${key}`);
+  await update(itemRef, experience);
 }

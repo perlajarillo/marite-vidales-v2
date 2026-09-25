@@ -96,5 +96,15 @@
   "deleteEducationEntry": "Delete education entry?",
   "changeEducationOrder": "Change education order?",
   "actionCanNotBeUndone": "This action cannot be undone.",
-  "areYouSureToUpdateOrder": "Are you sure you want to change the entries order?"
+  "areYouSureToUpdateOrder": "Are you sure you want to change the entries order?",
+  "editExperience": "Edit experience",
+  "deleteExperience": "Delete education item",
+  "experienceAdded": "Experience item added",
+  "experienceUpdated": "Experience item updated.",
+  "experienceDeleted": "Experience deleted.",
+  "experienceOrderUpdated": "Experience order updated.",
+  "deleteExperienceEntry": "Delete experience entry?",
+  "changeExperienceOrder": "Change experience order?",
+  "addExperience": "Add experience",
+  "experience": "Experience"
 }

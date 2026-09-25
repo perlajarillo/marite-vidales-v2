@@ -93,6 +93,9 @@ const Education = () => {
   };
 
   const addEducation = async (data: EducationItem) => {
+    if (isDirty) {
+      handleSaveOrder();
+    }
     try {
       createEducationItem({ ...data, index: fields.length });
       fetchData();

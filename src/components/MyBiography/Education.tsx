@@ -45,6 +45,7 @@ const Education = () => {
   const [editingRecord, setEditingRecord] = useState<EducationItem | null>(
     null,
   );
+  const [highlightedId, setHighlightedId] = useState<number | null>(null);
 
   const {
     register,
@@ -132,6 +133,13 @@ const Education = () => {
     }
   };
 
+  const onCancel = () => {
+    setIsDeleting(false);
+    setActiveKey(null);
+    setIndexToRemove(undefined);
+    setIsOrderDialogOpen(false);
+  };
+
   useEffect(() => {
     if (saveAfterRemoving) {
       handleSaveOrder();
@@ -154,6 +162,25 @@ const Education = () => {
       setMessage(intl.educationOrderUpdated);
     } catch {
       setMessage(intl.somethingWentWrong);
+    }
+  };
+
+  const onDelete = (index: number) => {
+    setIsDeleting(true);
+    setIndexToRemove(index);
+  };
+
+  const moveUp = (index: number, recordedIndex: number) => {
+    if (index > 0) {
+      setHighlightedId(recordedIndex);
+      swap(index, index - 1);
+    }
+  };
+
+  const moveDown = (index: number, recordedIndex: number) => {
+    if (index < fields.length - 1) {
+      setHighlightedId(recordedIndex);
+      swap(index, index + 1);
     }
   };
 
@@ -195,7 +222,7 @@ const Education = () => {
             return (
               <article
                 key={field.recordKey}
-                className="flex flex-wrap items-center gap-4 py-4"
+                className={`${styles.row} ${index !== field.index && highlightedId === field.index ? styles.highlightedRow : ""}`}
               >
                 <input
                   type="hidden"
@@ -227,7 +254,7 @@ const Education = () => {
                 <button
                   type="button"
                   disabled={index === 0}
-                  onClick={() => swap(index, index - 1)}
+                  onClick={() => moveUp(index, field.index)}
                   className="cursor-pointer"
                 >
                   ▲
@@ -235,7 +262,7 @@ const Education = () => {
                 <button
                   type="button"
                   disabled={index === fields.length - 1}
-                  onClick={() => swap(index, index + 1)}
+                  onClick={() => moveDown(index, field.index)}
                   className="cursor-pointer"
                 >
                   ▼
@@ -252,10 +279,7 @@ const Education = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => {
-                    setIsDeleting(true);
-                    setIndexToRemove(index);
-                  }}
+                  onClick={() => onDelete(index)}
                   className={styles.deleteButton}
                 >
                   {intl.delete}
@@ -286,12 +310,7 @@ const Education = () => {
               : intl.areYouSureToUpdateOrder
           }
           confirmAction={isDeleting ? handleDelete : handleSaveOrder}
-          cancelAction={() => {
-            setIsDeleting(false);
-            setActiveKey(null);
-            setIndexToRemove(undefined);
-            setIsOrderDialogOpen(false);
-          }}
+          cancelAction={onCancel}
         />
       )}
     </section>

@@ -70,8 +70,14 @@
   .missingInformationMessage {
     @apply text-sm text-slate-600;
   }
+  .row {
+    @apply flex flex-wrap items-center gap-4 py-4;
+  }
   .listItem {
     @apply min-w-0 flex-1 text-sm leading-6 text-slate-700;
+  }
+  .highlightedRow {
+    @apply font-semibold animate-pulse [animation-iteration-count:1.5] bg-gray-50;
   }
   .editButton {
     @apply rounded border border-gray-700 px-3 py-2 text-sm hover:bg-slate-50 cursor-pointer;

@@ -1,11 +1,21 @@
-import { ref, get } from "firebase/database";
-import { db } from "./firebase";
+import {
+  getDownloadURL,
+  ref as storageRef,
+  uploadBytes,
+} from "firebase/storage";
+import { get, push, ref, set, update } from "firebase/database";
+import { db, storage } from "./firebase";
+import type {
+  Biography,
+  EducationItem,
+  ExperienceItem,
+} from "../types/biography";
 
 /**
  * Fetches the biography data once from the Realtime Database.
  * @returns {Promise<any>} The parsed biography data payload
  */
-export async function getBiography() {
+export async function getBiography(): Promise<Biography | null> {
   try {
     // 1. Create a reference pointing to the 'biography' node
     const biographyRef = ref(db, "biography");
@@ -23,4 +33,65 @@ export async function getBiography() {
     console.error("Error fetching biography:", error);
     throw error;
   }
+}
+
+export async function saveBiographySummary(
+  summary: string,
+  picture?: File,
+): Promise<void> {
+  const biography: Partial<Biography> = { summary };
+
+  if (picture) {
+    const pictureRef = storageRef(storage, `biography/${picture.name}`);
+    const uploadedPicture = await uploadBytes(pictureRef, picture);
+    biography.pictureUrl = await getDownloadURL(uploadedPicture.ref);
+  }
+
+  await update(ref(db, "biography"), biography);
+}
+
+export async function saveBiographyEducation(
+  education: Record<string, EducationItem>,
+): Promise<void> {
+  const updatedEducation: Partial<Biography> = { education };
+
+  await update(ref(db, "biography"), updatedEducation);
+}
+
+export async function createEducationItem(education: EducationItem) {
+  const educationListRef = ref(db, "biography/education");
+  const newRef = push(educationListRef);
+  await set(newRef, education);
+  return newRef.key;
+}
+
+export async function updateEducationItem(
+  key: string,
+  education: EducationItem,
+) {
+  const itemRef = ref(db, `biography/education/${key}`);
+  await update(itemRef, education);
+}
+
+export async function saveBiographyExperience(
+  experience: Record<string, ExperienceItem>,
+): Promise<void> {
+  const updatedExperience: Partial<Biography> = { experience };
+
+  await update(ref(db, "biography"), updatedExperience);
+}
+
+export async function createExperienceItem(experience: ExperienceItem) {
+  const experienceListRef = ref(db, "biography/experience");
+  const newRef = push(experienceListRef);
+  await set(newRef, experience);
+  return newRef.key;
+}
+
+export async function updateExperienceItem(
+  key: string,
+  experience: ExperienceItem,
+) {
+  const itemRef = ref(db, `biography/experience/${key}`);
+  await update(itemRef, experience);
 }

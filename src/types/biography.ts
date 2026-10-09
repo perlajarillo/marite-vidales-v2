@@ -1,13 +1,14 @@
-interface EducationItem {
+export interface EducationItem {
   country: string;
   degree: string;
   field: string;
   index: number;
   institution: string;
   year: string;
+  id: string;
 }
 
-interface ExperienceItem {
+export interface ExperienceItem {
   country: string;
   dates: string;
   index: number;
@@ -21,3 +22,14 @@ export interface Biography {
   pictureUrl: string;
   summary: string;
 }
+
+export interface EducationRow {
+  i: number;
+  key: string;
+}
+
+export interface RecordKey {
+  recordKey: string;
+}
+export type EducationForm = EducationItem & RecordKey;
+export type ExperienceForm = ExperienceItem & RecordKey;

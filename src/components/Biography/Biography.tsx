@@ -5,10 +5,11 @@ import BiographySkeleton from "./BiographySkeleton";
 import useBiography from "../../hooks/useBiography";
 
 const BiographyPage: React.FC = () => {
-  const { data, loading } = useBiography();
+  const { data, error, hasData, loading, summary } = useBiography();
 
   if (loading) return <BiographySkeleton />;
-  if (!data && !loading) return <p>{intl.noDataAvailable}</p>;
+  if (error) return <p>{intl.failedToLoadBiography}</p>;
+  if (!hasData) return <p>{intl.noDataAvailable}</p>;
 
   return (
     <div className={styles.biographyContainer}>
@@ -21,7 +22,7 @@ const BiographyPage: React.FC = () => {
             loading="lazy"
           />
         </div>
-        <p className={styles.summaryText}>{data?.summary}</p>
+        <p className={styles.summaryText}>{summary}</p>
       </section>
       <BiographySectionList
         title={intl.education}

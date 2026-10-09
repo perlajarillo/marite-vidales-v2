@@ -20,4 +20,56 @@
   .modalBody {
     @apply max-h-[calc(100vh-4rem)] overflow-y-auto px-4 py-1 sm:px-6;
   }
+  .confirmDialog {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4;
+  }
+  .confirmDialogContainer {
+    @apply w-full max-w-md space-y-4 rounded-lg bg-white p-6 shadow-xl;
+  }
+  .dialogTitle {
+    @apply text-xl font-semibold;
+  }
+  .confirmDialogBody {
+    @apply text-sm;
+  }
+  .confirmDialogActionBar {
+    @apply flex justify-end gap-2;
+  }
+  .dialogSecondaryButton {
+    @apply rounded border border-slate-300 px-4 py-2 text-sm cursor-pointer hover:bg-slate-50;
+  }
+  .dialogPrimaryButton {
+    @apply rounded bg-[#424242] px-4 py-2 text-sm font-semibold text-white cursor-pointer hover:bg-gray-500 transition-colors disabled:opacity-50;
+  }
+  .formDialog {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+  }
+  .formDialogContainer {
+    @apply w-full max-w-lg rounded-md bg-white p-6 shadow-xl border border-gray-200;
+  }
+
+  .formDialogSubtitle {
+    @apply mt-1 text-sm text-gray-500 mb-6;
+  }
+  .formDialogFieldsContainer {
+    @apply max-h-[60vh] overflow-y-auto space-y-4 pr-1;
+  }
+  .formDialogFieldsColumn {
+    @apply flex flex-col;
+  }
+  .formDialogFieldLabel {
+    @apply text-xs text-gray-500 mb-1;
+  }
+  .formDialogInput {
+    @apply w-full border-b border-gray-300 py-1 text-sm focus:border-gray-900 focus:outline-none transition-colors;
+  }
+  .formDialogSelect {
+    @apply w-full border-b border-gray-300 py-1 text-sm focus:border-black focus:outline-none transition-colors bg-transparent;
+  }
+  .formDialogFieldError {
+    @apply mt-1 text-xs text-red-500;
+  }
+  .formDialogActionBar {
+    @apply flex justify-end gap-3 pt-4 border-t border-gray-100;
+  }
 }

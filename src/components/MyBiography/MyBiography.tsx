@@ -2,7 +2,7 @@ import { useAuth } from "../Login/AuthContext";
 import Unauthorized from "../Unauthorized/Unauthorized";
 import SummaryAndPicture from "./SummaryAndPicture.tsx";
 import Education from "./Education.tsx";
-import ProfessionalExperience from "./ProfesionalExperience.tsx";
+import ProfessionalExperience from "./ProfessionalExperience.tsx";
 
 const MyBiography = () => {
   const { user } = useAuth();

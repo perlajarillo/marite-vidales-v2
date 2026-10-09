@@ -26,3 +26,7 @@ export interface DynamicFormModalProps<T extends FieldValues> {
   submitLabel?: string;
   cancelLabel?: string;
 }
+
+export interface RecordKey {
+  recordKey: string;
+}

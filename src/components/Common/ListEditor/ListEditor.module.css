@@ -1,0 +1,47 @@
+@reference "tailwindcss";
+
+@layer components {
+  .successMessage {
+    @apply border border-green-200 bg-green-50 p-3 text-sm text-green-700;
+  }
+  .errorMessage {
+    @apply border border-red-200 bg-red-50 p-3 text-sm text-red-700;
+  }
+
+  .section {
+    @apply mx-auto max-w-4xl space-y-6 rounded-lg bg-white p-6 shadow-sm;
+  }
+  .sectionHeader {
+    @apply flex flex-wrap items-center justify-between gap-3;
+  }
+  .sectionTitle {
+    @apply text-2xl font-semibold;
+  }
+  .sectionHeaderActionBar {
+    @apply flex flex-wrap gap-2;
+  }
+  .primaryButton {
+    @apply rounded bg-gray-700 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-500 cursor-pointer;
+  }
+  .secondaryButton {
+    @apply rounded border border-gray-700 px-4 py-2 text-sm font-semibold hover:bg-slate-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:border-0 disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer;
+  }
+  .missingInformationMessage {
+    @apply text-sm text-slate-600;
+  }
+  .row {
+    @apply flex flex-wrap items-center gap-4 py-4;
+  }
+  .listItem {
+    @apply min-w-0 flex-1 text-sm leading-6 text-slate-700;
+  }
+  .highlightedRow {
+    @apply font-semibold animate-pulse [animation-iteration-count:1.5] bg-gray-50;
+  }
+  .editButton {
+    @apply rounded border border-gray-700 px-3 py-2 text-sm hover:bg-slate-50 cursor-pointer;
+  }
+  .deleteButton {
+    @apply rounded bg-red-700 px-3 py-2 text-sm text-white hover:bg-red-800 cursor-pointer;
+  }
+}

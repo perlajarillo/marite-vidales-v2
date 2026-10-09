@@ -44,45 +44,9 @@
     @apply flex justify-end gap-3 border-t border-gray-500/20 pt-5;
   }
   .cancelButton {
-    @apply flex items-center justify-center rounded-lg border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-700 transition hover:border-gray-900 hover:text-gray-900 focus:outline-none focus:ring-2 cursor-pointer;
+    @apply rounded border border-slate-300 px-4 py-2 text-sm cursor-pointer hover:bg-slate-50 uppercase;
   }
   .saveButton {
-    @apply px-5  text-sm rounded-lg bg-gray-700 py-3 font-semibold text-white transition hover:bg-gray-500 disabled:opacity-50 cursor-pointer;
-  }
-  .biographySection {
-    @apply mx-auto max-w-4xl space-y-6 rounded-lg bg-white p-6 shadow-sm;
-  }
-  .biographySectionHeader {
-    @apply flex flex-wrap items-center justify-between gap-3;
-  }
-  .biographySectionTitle {
-    @apply text-2xl font-semibold;
-  }
-  .biographySectionHeaderActionBar {
-    @apply flex flex-wrap gap-2;
-  }
-  .primaryButton {
-    @apply rounded bg-gray-700 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-500 cursor-pointer;
-  }
-  .secondaryButton {
-    @apply rounded border border-gray-700 px-4 py-2 text-sm font-semibold hover:bg-slate-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:border-0 disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer;
-  }
-  .missingInformationMessage {
-    @apply text-sm text-slate-600;
-  }
-  .row {
-    @apply flex flex-wrap items-center gap-4 py-4;
-  }
-  .listItem {
-    @apply min-w-0 flex-1 text-sm leading-6 text-slate-700;
-  }
-  .highlightedRow {
-    @apply font-semibold animate-pulse [animation-iteration-count:1.5] bg-gray-50;
-  }
-  .editButton {
-    @apply rounded border border-gray-700 px-3 py-2 text-sm hover:bg-slate-50 cursor-pointer;
-  }
-  .deleteButton {
-    @apply rounded bg-red-700 px-3 py-2 text-sm text-white hover:bg-red-800 cursor-pointer;
+    @apply rounded bg-[#424242] px-4 py-2 text-sm font-semibold text-white cursor-pointer hover:bg-gray-500 transition-colors disabled:opacity-50 uppercase;
   }
 }

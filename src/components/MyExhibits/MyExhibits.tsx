@@ -1,6 +1,6 @@
 import { useAuth } from "../Login/AuthContext";
-import UnderConstruction from "../UnderConstruction/UnderConstruction";
 import Unauthorized from "../Unauthorized/Unauthorized";
+import Galleries from "./Galleries";
 
 const MyExhibits = () => {
   const { user } = useAuth();
@@ -9,7 +9,7 @@ const MyExhibits = () => {
   }
   return (
     <div>
-      <UnderConstruction />
+      <Galleries />
     </div>
   );
 };

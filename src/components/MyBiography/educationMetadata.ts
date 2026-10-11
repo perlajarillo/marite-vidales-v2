@@ -1,38 +1,36 @@
 import type { EducationItem } from "../../types/biography";
 import type { FieldConfig } from "../../types/forms";
+import intl from "../../locales/en.json";
 
 export const educationFields: FieldConfig<EducationItem>[] = [
   {
     name: "field",
-    label: "Field of study",
-    placeholder: "e.g. visual arts, history of art, etc.",
-    rules: { required: "Field of study is required" },
+    label: intl.fieldOfStudy,
+    placeholder: intl.fieldOfStudyExample,
+    rules: { required: intl.fieldOfStudyRequired },
   },
   {
     name: "degree",
-    label: "Degree",
-    placeholder: "e.g. bachelors, certificate, course, etc.",
-
-    rules: { required: "Degree is required" },
+    label: intl.degree,
+    placeholder: intl.degreeExample,
+    rules: { required: intl.degreeRequired },
   },
   {
     name: "institution",
-    label: "Institution",
-    placeholder: "Institution",
-    rules: { required: "Institution is required" },
+    label: intl.institution,
+    placeholder: intl.institutionExample,
+    rules: { required: intl.institutionRequired },
   },
   {
     name: "country",
-    label: "Country",
-    placeholder: "City, Country: ",
-    rules: { required: "Country is required" },
+    label: intl.country,
+    placeholder: intl.countryExample,
+    rules: { required: intl.countryRequired },
   },
   {
     name: "year",
-    label: "Completion Year (or expected)",
-    placeholder: "Year/Period e.g. 1970, January - February 2014",
-    rules: {
-      required: "Completion year is required",
-    },
+    label: intl.educationYear,
+    placeholder: intl.educationYearExample,
+    rules: { required: intl.educationYearRequired },
   },
 ];

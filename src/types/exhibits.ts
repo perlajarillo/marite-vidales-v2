@@ -1,6 +1,7 @@
 export interface Gallery {
   address: string;
   gallery: string;
+  index: number;
 }
 
 export interface Exhibit {
@@ -8,6 +9,7 @@ export interface Exhibit {
   name: string;
   place: string;
   year: string;
+  index: number;
 }
 
 interface ExhibitPicture {

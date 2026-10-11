@@ -1,5 +1,6 @@
-import { ref, get } from "firebase/database";
+import { ref, get, update, push, set } from "firebase/database";
 import { db } from "./firebase";
+import type { Gallery, Exhibits } from "../types/exhibits";
 
 /**
  * Fetches the exhibits data once from the Realtime Database.
@@ -23,4 +24,24 @@ export async function getExhibits() {
     console.error("Error fetching exhibits:", error);
     throw error;
   }
+}
+
+export async function saveGalleries(
+  galleries: Record<string, Gallery>,
+): Promise<void> {
+  const updatedGalleries: Partial<Exhibits> = { galleries };
+
+  await update(ref(db, "exhibits"), updatedGalleries);
+}
+
+export async function createGalleryItem(gallery: Gallery) {
+  const galleriesListRef = ref(db, "exhibits/galleries");
+  const newRef = push(galleriesListRef);
+  await set(newRef, gallery);
+  return newRef.key;
+}
+
+export async function updateGalleryItem(key: string, gallery: Gallery) {
+  const itemRef = ref(db, `exhibits/galleries/${key}`);
+  await update(itemRef, gallery);
 }

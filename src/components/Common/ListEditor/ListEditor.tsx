@@ -45,6 +45,7 @@ interface FormEditorProps<T extends IndexedItem> {
   updateItem: (key: string, item: T) => Promise<void>;
   saveOrder: (items: Record<string, T>) => Promise<void>;
   fetchData: () => void;
+  prependNewItem?: boolean;
 }
 
 function FormEditor<T extends IndexedItem>({
@@ -60,6 +61,7 @@ function FormEditor<T extends IndexedItem>({
   updateItem,
   saveOrder,
   fetchData,
+  prependNewItem = false,
 }: FormEditorProps<T>) {
   const initialItems = Object.entries(savedItems)
     .map(([recordKey, item]) => ({ ...item, recordKey }) as EditorRow)
@@ -77,6 +79,7 @@ function FormEditor<T extends IndexedItem>({
   const {
     fields: items,
     append,
+    prepend,
     remove,
     swap,
     update,
@@ -143,13 +146,23 @@ function FormEditor<T extends IndexedItem>({
       if (isOrderDirty && !(await handleSaveOrder())) return;
       const createdKey = await createItem({ ...data, index: items.length });
       if (typeof createdKey !== "string") throw new Error("Missing item key");
-      append({
-        ...data,
-        index: items.length,
-        recordKey: createdKey,
-      } as EditorRow);
-      fetchData();
-      setMessage(messages.added);
+      if (prependNewItem) {
+        prepend({
+          ...data,
+          index: 0,
+          recordKey: createdKey,
+        });
+        handleSaveOrder(undefined, messages.added);
+      } else {
+        append({
+          ...data,
+          index: items.length,
+          recordKey: createdKey,
+        } as EditorRow);
+        fetchData();
+        setMessage(messages.added);
+      }
+
       closeForm();
     } catch {
       setError(messages.error);

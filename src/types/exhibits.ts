@@ -4,6 +4,11 @@ export interface Gallery {
   index: number;
 }
 
+export interface GrantAward {
+  grantAward: string;
+  index: number;
+}
+
 export interface Exhibit {
   dates: string;
   name: string;
@@ -20,7 +25,7 @@ interface ExhibitPicture {
 
 export interface Exhibits {
   galleries: Record<string, Gallery>;
-  grantsAndAwards: Record<string, string>;
+  grantsAndAwards: Record<string, GrantAward>;
   juried: Record<string, Exhibit>;
   selected: Record<string, Exhibit>;
   solo: Record<string, Exhibit>;

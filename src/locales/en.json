@@ -49,6 +49,7 @@
   "SelectedJuriedExhibitions": "Selected Juried Exhibitions",
   "Exhibition": "Exhibition",
   "GrantsAndAwards": "Grants and Awards",
+  "noGrantsOrAwardsAdded": "No grants or awards have been added yet!",
   "SelectedGroupExhibitions": "Selected Group Exhibitions",
   "AvailablePaintingsOrPricing": "Available paintings or pricing",
   "GalleryExhibitionOrCurationOpportunities": "Gallery exhibition or curation opportunities",
@@ -144,5 +145,14 @@
   "addressRequired": "Address is required",
   "gallery": "Gallery",
   "galleryExample": "Gallery name",
-  "galleryRequired": "Gallery name is required"
+  "galleryRequired": "Gallery name is required",
+  "grantAward": "Grant/Award:",
+  "grantAwardExample": "Award/Grant, event/date, place",
+  "grantAwardRequired": "Award/Grant is required",
+  "addGrantOrAward": "Add grant or award",
+  "editGrantOrAward": "Edit grant or award",
+  "deleteGrantAwardEntry": "Delete Grant/Award Entry",
+  "changeGrantAwardOrder": "Change Grant/Award Order",
+  "grantAwardOrderUpdated": "Grant/Award order updated.",
+  "noGrantAwardAdded": "No grant or award has been added yet!"
 }

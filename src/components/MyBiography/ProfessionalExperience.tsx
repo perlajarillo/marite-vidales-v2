@@ -7,7 +7,7 @@ import {
   updateExperienceItem,
 } from "../../services/biography";
 import type { ExperienceItem } from "../../types/biography";
-import OrderedBiographyEditor from "../Common/ListEditor/ListEditor";
+import OrderedBiographyEditor from "../Common/ListEditor/IndexedListEditor";
 import { experienceFields } from "./experienceMetadata";
 
 const emptyExperienceItem: ExperienceItem = {

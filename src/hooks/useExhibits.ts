@@ -28,7 +28,14 @@ const useExhibits = () => {
       .finally(() => setLoading(false));
   };
 
-  return { data, galleries, loading, error, fetchData };
+  return {
+    data,
+    galleries,
+    grantsAndAwards: data?.grantsAndAwards ?? {},
+    loading,
+    error,
+    fetchData,
+  };
 };
 
 export default useExhibits;

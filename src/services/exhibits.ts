@@ -1,6 +1,6 @@
 import { ref, get, update, push, set } from "firebase/database";
 import { db } from "./firebase";
-import type { Gallery, Exhibits } from "../types/exhibits";
+import type { Gallery, Exhibits, GrantAward } from "../types/exhibits";
 
 /**
  * Fetches the exhibits data once from the Realtime Database.
@@ -44,4 +44,27 @@ export async function createGalleryItem(gallery: Gallery) {
 export async function updateGalleryItem(key: string, gallery: Gallery) {
   const itemRef = ref(db, `exhibits/galleries/${key}`);
   await update(itemRef, gallery);
+}
+
+export async function saveGrantAwards(
+  grantsAndAwards: Record<string, GrantAward>,
+): Promise<void> {
+  const updatedGrantsAndAwards: Partial<Exhibits> = { grantsAndAwards };
+
+  await update(ref(db, "exhibits"), updatedGrantsAndAwards);
+}
+
+export async function createGrantAwardItem(grantAward: GrantAward) {
+  const grantsAndAwardsListRef = ref(db, "exhibits/grantsAndAwards");
+  const newRef = push(grantsAndAwardsListRef);
+  await set(newRef, grantAward);
+  return newRef.key;
+}
+
+export async function updateGrantAwardItem(
+  key: string,
+  grantAward: GrantAward,
+) {
+  const itemRef = ref(db, `exhibits/grantsAndAwards/${key}`);
+  await update(itemRef, grantAward);
 }

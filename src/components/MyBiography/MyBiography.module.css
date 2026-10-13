@@ -5,7 +5,7 @@
     @apply border border-green-200 bg-green-50 p-3 text-sm text-green-700;
   }
   .editSummaryPhotoButton {
-    @apply px-5 py-2.5 text-sm rounded-lg bg-gray-500 py-3 font-semibold text-white transition hover:bg-gray-700 disabled:opacity-50 cursor-pointer;
+    @apply px-5 py-2.5 text-sm rounded-lg bg-gray-500 font-semibold text-white transition hover:bg-gray-700 disabled:opacity-50 cursor-pointer;
   }
   .editorContainer {
     @apply fixed inset-0 z-50 overflow-y-auto bg-black/50 p-4;

@@ -7,7 +7,7 @@ import {
   updateEducationItem,
 } from "../../services/biography";
 import type { EducationItem } from "../../types/biography";
-import OrderedBiographyEditor from "../Common/ListEditor/ListEditor";
+import IndexedListEditor from "../Common/ListEditor/IndexedListEditor";
 import { educationFields } from "./educationMetadata";
 
 const emptyEducationItem: EducationItem = {
@@ -27,7 +27,7 @@ const Education = () => {
   if (!user || loading) return null;
 
   return (
-    <OrderedBiographyEditor<EducationItem>
+    <IndexedListEditor<EducationItem>
       title={intl.education}
       addLabel={intl.addEducation}
       editTitle={intl.editEducation}

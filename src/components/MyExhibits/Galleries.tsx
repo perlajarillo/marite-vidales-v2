@@ -5,7 +5,7 @@ import {
   createGalleryItem,
   updateGalleryItem,
 } from "../../services/exhibits";
-import ListEditor from "../Common/ListEditor/ListEditor";
+import IndexedListEditor from "../Common/ListEditor/IndexedListEditor";
 import { galleryFields } from "./galleryMetadata";
 import type { Gallery } from "../../types/exhibits";
 import useExhibits from "../../hooks/useExhibits";
@@ -23,7 +23,7 @@ const Galleries = () => {
   if (!user || loading) return null;
   console.log(galleries);
   return (
-    <ListEditor<Gallery>
+    <IndexedListEditor<Gallery>
       title={intl.Galleries}
       addLabel={intl.addGallery}
       editTitle={intl.editGallery}

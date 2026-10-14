@@ -1,6 +1,6 @@
 import { ref, get, update, push, set } from "firebase/database";
 import { db } from "./firebase";
-import type { Gallery, Exhibits, GrantAward } from "../types/exhibits";
+import type { Gallery, Exhibits, GrantAward, Exhibit } from "../types/exhibits";
 
 /**
  * Fetches the exhibits data once from the Realtime Database.
@@ -67,4 +67,44 @@ export async function updateGrantAwardItem(
 ) {
   const itemRef = ref(db, `exhibits/grantsAndAwards/${key}`);
   await update(itemRef, grantAward);
+}
+
+export async function saveSoloExhibits(
+  solo: Record<string, Exhibit>,
+): Promise<void> {
+  const updatedSolo: Partial<Exhibits> = { solo };
+
+  await update(ref(db, "exhibits"), updatedSolo);
+}
+
+export async function createSoloExhibitItem(solo: Exhibit) {
+  const soloListRef = ref(db, "exhibits/solo");
+  const newRef = push(soloListRef);
+  await set(newRef, solo);
+  return newRef.key;
+}
+
+export async function updateSoloExhibitItem(key: string, solo: Exhibit) {
+  const itemRef = ref(db, `exhibits/solo/${key}`);
+  await update(itemRef, solo);
+}
+
+export async function saveJuriedExhibits(
+  juried: Record<string, Exhibit>,
+): Promise<void> {
+  const updatedJuried: Partial<Exhibits> = { juried };
+
+  await update(ref(db, "exhibits"), updatedJuried);
+}
+
+export async function createJuriedExhibitItem(juried: Exhibit) {
+  const juriedListRef = ref(db, "exhibits/juried");
+  const newRef = push(juriedListRef);
+  await set(newRef, juried);
+  return newRef.key;
+}
+
+export async function updateJuriedExhibitItem(key: string, juried: Exhibit) {
+  const itemRef = ref(db, `exhibits/juried/${key}`);
+  await update(itemRef, juried);
 }

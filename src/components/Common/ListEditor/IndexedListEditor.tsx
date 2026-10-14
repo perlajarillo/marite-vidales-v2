@@ -172,6 +172,7 @@ function IndexedListEditor<T extends IndexedItem>({
   const handleEdit = async (data: T) => {
     if (activeKey === null) return;
     try {
+      if (isOrderDirty && !(await handleSaveOrder())) return;
       await updateItem(activeKey, data);
       const itemIndex = items.findIndex((item) => item.recordKey === activeKey);
       if (itemIndex !== -1) {
@@ -276,10 +277,7 @@ function IndexedListEditor<T extends IndexedItem>({
                 type="hidden"
                 {...register(`items.${index}.recordKey` as Path<EditorForm>)}
               />
-              <p className={styles.listItem}>
-                <span className="font-semibold">{index + 1}. </span>
-                {formatSummary(item as T)}
-              </p>
+              <p className={styles.listItem}>{formatSummary(item as T)}</p>
               <button
                 type="button"
                 disabled={index === 0}

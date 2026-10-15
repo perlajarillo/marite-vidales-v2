@@ -149,8 +149,8 @@
   "grantAward": "Grant/Award:",
   "grantAwardExample": "Award/Grant, event/date, place",
   "grantAwardRequired": "Award/Grant is required",
-  "addGrantOrAward": "Add grant or award",
-  "editGrantOrAward": "Edit grant or award",
+  "addGrantOrAward": "Add Grant/Award",
+  "editGrantOrAward": "Edit Grant/Award",
   "deleteGrantAwardEntry": "Delete Grant/Award Entry",
   "changeGrantAwardOrder": "Change Grant/Award Order",
   "grantAwardOrderUpdated": "Grant/Award order updated.",
@@ -173,9 +173,11 @@
   "exhibitYear": "Exhibit Year",
   "exhibitYearExample": "Year e.g. 1970, 2023",
   "exhibitYearRequired": "Exhibit year is required",
-  "addSoloExhibit": "Add solo exhibit",
-  "editSoloExhibit": "Edit solo exhibit",
+  "addSoloExhibit": "Add Solo exhibit",
+  "editSoloExhibit": "Edit Solo exhibit",
   "deleteSoloExhibitEntry": "Delete Solo Exhibit Entry",
-  "addJuriedExhibit": "Add juried exhibit",
-  "editJuriedExhibit": "Edit juried exhibit"
+  "addJuriedExhibit": "Add Juried exhibit",
+  "editJuriedExhibit": "Edit Juried exhibit",
+  "addGroupExhibit": "Add Group exhibit",
+  "editGroupExhibit": "Edit Group exhibit"
 }

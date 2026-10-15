@@ -9,8 +9,7 @@ import IndexedListEditor from "../Common/ListEditor/IndexedListEditor";
 import { exhibitFields } from "./exhibitMetadata";
 import useExhibits from "../../hooks/useExhibits";
 import type { Exhibit } from "../../types/exhibits";
-
-const emptyExhibitItem = { dates: "", name: "", place: "", year: "", index: 0 };
+import { emptyExhibitItem } from "./exhibitMetadata";
 
 const MySelectedSoloExhibits = () => {
   const { user } = useAuth();

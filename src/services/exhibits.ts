@@ -108,3 +108,23 @@ export async function updateJuriedExhibitItem(key: string, juried: Exhibit) {
   const itemRef = ref(db, `exhibits/juried/${key}`);
   await update(itemRef, juried);
 }
+
+export async function saveGroupExhibits(
+  selected: Record<string, Exhibit>,
+): Promise<void> {
+  const updatedGroup: Partial<Exhibits> = { selected };
+
+  await update(ref(db, "exhibits"), updatedGroup);
+}
+
+export async function createGroupExhibitItem(selected: Exhibit) {
+  const groupListRef = ref(db, "exhibits/selected");
+  const newRef = push(groupListRef);
+  await set(newRef, selected);
+  return newRef.key;
+}
+
+export async function updateGroupExhibitItem(key: string, selected: Exhibit) {
+  const itemRef = ref(db, `exhibits/selected/${key}`);
+  await update(itemRef, selected);
+}

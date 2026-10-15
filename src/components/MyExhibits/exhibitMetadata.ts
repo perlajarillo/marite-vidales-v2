@@ -2,6 +2,14 @@ import intl from "../../locales/en.json";
 import type { Exhibit } from "../../types/exhibits";
 import type { FieldConfig } from "../../types/forms";
 
+export const emptyExhibitItem = {
+  dates: "",
+  name: "",
+  place: "",
+  year: "",
+  index: 0,
+};
+
 export const exhibitFields: FieldConfig<Exhibit>[] = [
   {
     name: "dates",

@@ -2,6 +2,7 @@ import { useAuth } from "../Login/AuthContext";
 import Unauthorized from "../Unauthorized/Unauthorized";
 import Galleries from "./Galleries";
 import MyGrantsAndAwards from "./MyGrantsAndAwards";
+import MySelectedGroupExhibits from "./MySelectedGroupExhibits";
 import MySelectedJuriedExhibits from "./MySelectedJuriedExhibits";
 import MySelectedSoloExhibits from "./MySelectedSoloExhibits";
 
@@ -16,6 +17,7 @@ const MyExhibits = () => {
       <MyGrantsAndAwards />
       <MySelectedSoloExhibits />
       <MySelectedJuriedExhibits />
+      <MySelectedGroupExhibits />
     </div>
   );
 };

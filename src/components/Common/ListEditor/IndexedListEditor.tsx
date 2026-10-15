@@ -282,7 +282,7 @@ function IndexedListEditor<T extends IndexedItem>({
                 type="button"
                 disabled={index === 0}
                 onClick={() => moveItem(index, -1)}
-                className="cursor-pointer"
+                className={` ${index === 0 ? styles.upDownButtonDisabled : styles.upDownButton}`}
                 aria-label={`Move ${title} item up`}
               >
                 ▲
@@ -291,7 +291,7 @@ function IndexedListEditor<T extends IndexedItem>({
                 type="button"
                 disabled={index === items.length - 1}
                 onClick={() => moveItem(index, 1)}
-                className="cursor-pointer"
+                className={`${index === items.length - 1 ? styles.upDownButtonDisabled : styles.upDownButton}`}
                 aria-label={`Move ${title} item down`}
               >
                 ▼

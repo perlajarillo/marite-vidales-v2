@@ -44,4 +44,10 @@
   .deleteButton {
     @apply rounded bg-red-700 px-3 py-2 text-sm text-white hover:bg-red-800 cursor-pointer;
   }
+  .upDownButton {
+    @apply cursor-pointer;
+  }
+  .upDownButtonDisabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
 }

@@ -17,7 +17,6 @@ const MyGrantsAndAwards = () => {
   const { grantsAndAwards, loading, error, fetchData } = useExhibits();
 
   if (!user || loading) return null;
-  console.log(grantsAndAwards);
 
   return (
     <IndexedListEditor<GrantAward>

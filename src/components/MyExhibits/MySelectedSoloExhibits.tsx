@@ -17,7 +17,6 @@ const MySelectedSoloExhibits = () => {
   const { solo, loading, error, fetchData } = useExhibits();
 
   if (!user || loading) return null;
-  console.log(solo);
 
   return (
     <IndexedListEditor<Exhibit>

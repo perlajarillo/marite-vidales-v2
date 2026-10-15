@@ -21,7 +21,6 @@ const Galleries = () => {
   const { galleries, loading, error, fetchData } = useExhibits();
 
   if (!user || loading) return null;
-  console.log(galleries);
   return (
     <IndexedListEditor<Gallery>
       title={intl.Galleries}

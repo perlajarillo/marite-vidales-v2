@@ -17,7 +17,6 @@ const MySelectedJuriedExhibits = () => {
   const { juried, loading, error, fetchData } = useExhibits();
 
   if (!user || loading) return null;
-  console.log(juried);
 
   return (
     <IndexedListEditor<Exhibit>

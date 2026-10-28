@@ -1,6 +1,7 @@
 import { useAuth } from "../Login/AuthContext";
 import Unauthorized from "../Unauthorized/Unauthorized";
 import Galleries from "./Galleries";
+import MyExhibitsImageCarousel from "./MyExhibitsImageCarousel";
 import MyGrantsAndAwards from "./MyGrantsAndAwards";
 import MySelectedGroupExhibits from "./MySelectedGroupExhibits";
 import MySelectedJuriedExhibits from "./MySelectedJuriedExhibits";
@@ -12,7 +13,8 @@ const MyExhibits = () => {
     return <Unauthorized />;
   }
   return (
-    <div className="mt-8 md:pt-0 flex flex-col gap-5">
+    <div className="mt-6 md:pt-0 flex flex-col gap-5">
+      <MyExhibitsImageCarousel />
       <Galleries />
       <MyGrantsAndAwards />
       <MySelectedSoloExhibits />

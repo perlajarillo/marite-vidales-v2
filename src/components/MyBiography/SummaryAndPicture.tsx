@@ -6,10 +6,11 @@ import styles from "./MyBiography.module.css";
 import useBiography from "../../hooks/useBiography";
 import BiographySkeleton from "../Biography/BiographySkeleton";
 import intl from "../../locales/en.json";
-
-const MAX_IMAGE_SIZE = 8 * 1024 * 1024;
-const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg"];
-const ALLOWED_EXTENSIONS = [".png", ".jpg", ".jpeg"];
+import {
+  MAX_IMAGE_SIZE,
+  ALLOWED_TYPES,
+  ALLOWED_EXTENSIONS,
+} from "../../constants/images";
 
 const SummaryAndPicture = () => {
   const { user } = useAuth();

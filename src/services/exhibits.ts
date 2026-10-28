@@ -1,6 +1,17 @@
+import {
+  getDownloadURL,
+  ref as storageRef,
+  uploadBytes,
+} from "firebase/storage";
 import { ref, get, update, push, set } from "firebase/database";
-import { db } from "./firebase";
-import type { Gallery, Exhibits, GrantAward, Exhibit } from "../types/exhibits";
+import { db, storage } from "./firebase";
+import type {
+  Gallery,
+  Exhibits,
+  GrantAward,
+  Exhibit,
+  ExhibitPicture,
+} from "../types/exhibits";
 
 /**
  * Fetches the exhibits data once from the Realtime Database.
@@ -127,4 +138,87 @@ export async function createGroupExhibitItem(selected: Exhibit) {
 export async function updateGroupExhibitItem(key: string, selected: Exhibit) {
   const itemRef = ref(db, `exhibits/selected/${key}`);
   await update(itemRef, selected);
+}
+
+export async function saveCarouselExhibits(
+  carousel: Record<string, ExhibitPicture>,
+): Promise<void> {
+  const updatedCarousel: Partial<Exhibits> = { carousel };
+
+  await update(ref(db, "exhibits"), updatedCarousel);
+}
+
+export async function createCarouselExhibitItem(
+  carouselItem: ExhibitPicture,
+  picture?: File,
+) {
+  if (picture) {
+    const uniqueFileName = `${Date.now()}_${picture.name}`;
+    const pictureRef = storageRef(storage, `exhibits/${uniqueFileName}`);
+    const uploadedPicture = await uploadBytes(pictureRef, picture);
+    carouselItem.url = await getDownloadURL(uploadedPicture.ref);
+  }
+  const groupListRef = ref(db, "exhibits/carousel");
+  const newRef = push(groupListRef);
+  await set(newRef, carouselItem);
+  return newRef.key;
+}
+
+export async function createCarouselExhibitItems(
+  carouselItems: ExhibitPicture[],
+  filesArray: File[],
+) {
+  try {
+    // 1. Map each file to an individual upload promise
+    const uploadPromises = filesArray.map(async (file) => {
+      // Create a unique path/filename inside your bucket
+      const uniqueFileName = `${Date.now()}_${file.name}`;
+      const storageImgRef = storageRef(storage, `exhibits/${uniqueFileName}`);
+
+      // Upload the single file
+      await uploadBytes(storageImgRef, file);
+
+      // Get and return its public download URL
+      const downloadURL = await getDownloadURL(storageImgRef);
+      return downloadURL;
+    });
+
+    // 2. Execute all upload promises concurrently
+    const uploadedImages = await Promise.all(uploadPromises);
+
+    // 3. Prepare the multi-path block update object
+    const bulkUpdateObject: Record<string, ExhibitPicture> = {};
+    const itemsRef = ref(db, "exhibits/carousel");
+
+    carouselItems.forEach((carouselItem, index) => {
+      // Generate a unique, timestamp-based key via push() without writing to the db yet
+      const newId = push(itemsRef).key;
+
+      // Define the object structure combining user data and the image metadata
+      const itemData = {
+        ...carouselItem,
+        url: uploadedImages[index],
+      };
+      if (newId) {
+        // Construct the absolute path inside the JSON tree
+        bulkUpdateObject[`/exhibits/carousel/${newId}`] = itemData;
+      }
+    });
+
+    // 4. Commit all items to the Realtime Database in a single atomic block write
+    await update(ref(db), bulkUpdateObject);
+
+    console.log("Successfully saved all items in batch!", bulkUpdateObject);
+  } catch (error) {
+    console.error("Error uploading multiple files:", error);
+    throw error;
+  }
+}
+
+export async function updateCarouselItem(
+  key: string,
+  carouselItem: ExhibitPicture,
+) {
+  const itemRef = ref(db, `exhibits/carousel/${key}`);
+  await update(itemRef, carouselItem);
 }

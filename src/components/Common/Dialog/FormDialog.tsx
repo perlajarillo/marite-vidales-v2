@@ -77,6 +77,20 @@ export default function FormDialog<T extends FieldValues>({
                         </option>
                       ))}
                     </select>
+                  ) : field.type === "hidden" ? (
+                    <input
+                      type="hidden"
+                      {...register(field.name, field.rules)}
+                      placeholder={field.placeholder}
+                      className={styles.formDialogInput}
+                    />
+                  ) : field.type === "url" ? (
+                    <img
+                      src={defaultValues?.[field.name] as string}
+                      alt="Preview"
+                      className={styles.formDialogImagePreview}
+                      {...register(field.name, field.rules)}
+                    />
                   ) : (
                     <input
                       type={field.type || "text"}
@@ -101,6 +115,7 @@ export default function FormDialog<T extends FieldValues>({
             <button
               type="button"
               onClick={onCancel}
+              disabled={isSubmitting}
               className={styles.dialogSecondaryButton}
             >
               {cancelLabel}

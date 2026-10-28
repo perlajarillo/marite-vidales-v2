@@ -4,7 +4,17 @@ import {
   type FieldValues,
 } from "react-hook-form";
 
-export type FieldType = "text" | "number" | "email" | "textarea" | "select";
+export type FieldType =
+  | "text"
+  | "number"
+  | "email"
+  | "textarea"
+  | "select"
+  | "checkbox"
+  | "radio"
+  | "hidden"
+  | "date"
+  | "url";
 
 export interface FieldConfig<T extends FieldValues> {
   name: Path<T>;

@@ -1,0 +1,13 @@
+@reference "tailwindcss";
+
+@layer components {
+  .carouselSummaryContainer {
+    @apply flex flex-col items-center justify-center space-x-2;
+  }
+  .carouselImage {
+    @apply w-40 h-22 object-cover rounded-lg border border-slate-200;
+  }
+  .carouselImageCaption {
+    @apply text-xs text-slate-700 font-medium truncate w-40;
+  }
+}

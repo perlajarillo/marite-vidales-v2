@@ -17,7 +17,7 @@ export interface Exhibit {
   index: number;
 }
 
-interface ExhibitPicture {
+export interface ExhibitPicture {
   caption: string;
   url: string;
   order: number;

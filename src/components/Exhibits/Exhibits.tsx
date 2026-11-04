@@ -11,11 +11,14 @@ import type { Gallery, GrantAward } from "../../types/exhibits";
 const Exhibits = () => {
   const { data, loading } = useExhibits();
   const carouselData = data?.carousel ? Object.values(data.carousel) : [];
-  const carouselImages = carouselData.map((picture) => ({
-    src: picture.url,
-    alt: picture.caption,
-    caption: picture.caption,
-  }));
+  const carouselImages = carouselData
+    .map((picture) => ({
+      src: picture.url,
+      alt: picture.caption,
+      caption: picture.caption,
+      order: picture.order,
+    }))
+    .sort((a, b) => a.order - b.order);
   const galleries = data?.galleries
     ? Object.values(data.galleries).slice(0).reverse()
     : [];

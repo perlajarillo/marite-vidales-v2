@@ -16,19 +16,21 @@ import myExhibitsStyle from "./MyExhibits.module.css";
 const MyExhibitsImageCarousel = () => {
   const { carousel, fetchData } = useExhibits();
   const carouselData = carousel ? Object.values(carousel) : [];
-  const images = carouselData.map((picture) => ({
-    src: picture.url,
-    alt: picture.caption,
-    caption: picture.caption,
-    order: picture.order,
-  }));
+  const images = carouselData
+    .map((picture) => ({
+      src: picture.url,
+      alt: picture.caption,
+      caption: picture.caption,
+      order: picture.order,
+    }))
+    .sort((a, b) => a.order - b.order);
 
   const refetchData = () => {
     fetchData();
   };
 
   return (
-    <section className="mx-auto max-w-4xl space-y-6 rounded-lg bg-white">
+    <section>
       <div className={styles.carouselContainer}>
         <Carousel images={images} autoPlay={true} fitHeight={true} />
       </div>

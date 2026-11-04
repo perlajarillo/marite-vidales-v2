@@ -195,5 +195,16 @@
   "noImageAddedYet": "No images added yet.",
   "imageOrderUpdated": "Image order updated successfully.",
   "orderImage": "Change Image Order",
-  "orderImageConfirmation": "Are you sure you want to update the image order?"
+  "orderImageConfirmation": "Are you sure you want to update the image order?",
+  "selectedImagesHaveBeenAdded": "The selected images have been added.",
+  "allowedFiles": "PNG, JPG, JPEG up to 8MB",
+  "addImagesInstructions": "Click any image to add extra details and save them one by one. You can also save everything at once using the button below, but you'll need to fill in any missing details later.",
+  "savingSelectedFiles": "Saving selected Files...",
+  "saveAllImages": "Save all images",
+  "addMoreOrOneImagesConfirmation": "You are about to add one or more images at once. You will need to fill in any missing details later. Are you sure to proceed?",
+  "dropImagesHere": "Drop images here",
+  "clickToUploadOrDragDrop": "Click to upload or drag & drop",
+  "addingImagesWithMissingDetails": "Adding images with missing details...",
+  "moveRight": "Move Right",
+  "moveLeft": "Move Left"
 }

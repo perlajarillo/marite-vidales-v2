@@ -260,7 +260,7 @@ function IndexedListEditor<T extends IndexedItem>({
           {items.map(({ fieldArrayId, recordKey, ...item }, index) => (
             <article
               key={fieldArrayId}
-              className={`${styles.row} ${index !== item.index && highlightedId === item.index ? styles.highlightedRow : ""}`}
+              className={`${styles.row} ${index !== item.index && highlightedId === item.index ? styles.highlightedItem : ""}`}
             >
               {Object.keys(emptyItem)
                 .filter((fieldName) => fieldName !== "index")

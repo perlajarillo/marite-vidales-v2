@@ -203,13 +203,12 @@ function ImagesManager<T extends IndexedItem>({
         totalItems++;
         return { caption: "", url: "", order: totalItems };
       });
-      console.log("selectedFilesTemplates", selectedFilesTemplates);
       await createItemsInBulk(
         selectedFilesTemplates as unknown as T[],
         selectedFiles,
       );
       fetchData();
-      setMessage("A group of images have been added.");
+      setMessage(intl.selectedImagesHaveBeenAdded);
       setSelectedFiles([]);
       setSelectedFilesPreview([]);
     } catch {
@@ -273,7 +272,6 @@ function ImagesManager<T extends IndexedItem>({
     const filesArray = Array.from(fileList);
     const files: File[] = [];
     const thumbnails: string[] = [];
-    //const validImages: CarouselImage[] = [];
     const errors: string[] = [];
 
     filesArray.forEach((file) => {
@@ -345,8 +343,8 @@ function ImagesManager<T extends IndexedItem>({
   }, [savedItems]);
 
   return (
-    <section className="mx-auto max-w-4xl space-y-6 rounded-lg bg-white  ">
-      <h2 className="text-xl font-semibold text-slate-800">{title}</h2>
+    <section className={styles.section}>
+      <h2 className={styles.sectionTitle}>{title}</h2>
       {message && <p className={styles.successMessage}>{message}</p>}
       {error && <span className={styles.errorMessage}>{error}</span>}
       {/* Upload Dropzone */}
@@ -355,21 +353,13 @@ function ImagesManager<T extends IndexedItem>({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => setError("")}
-        className={`flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-6 cursor-pointer hover:bg-slate-100 transition 
-          ${
-            isDraggingOver
-              ? "border-indigo-600 bg-indigo-50/80 bg-scale-[0.99]"
-              : "border-slate-300 bg-slate-50 hover:bg-slate-100"
-          }`}
+        className={`${styles.dropZone} 
+          ${isDraggingOver ? styles.draggingOver : styles.notDraggingOver}`}
       >
-        <span className="text-sm font-medium text-slate-600">
-          {isDraggingOver
-            ? "Drop images here"
-            : "Click to upload or drag & drop"}
+        <span>
+          {isDraggingOver ? intl.dropImagesHere : intl.clickToUploadOrDragDrop}
         </span>
-        <span className="text-xs text-slate-400 mt-1">
-          PNG, JPG, WEBP up to 10MB
-        </span>
+        <span className={styles.allowedFiles}>{intl.allowedFiles}</span>
 
         <input
           type="file"
@@ -380,28 +370,21 @@ function ImagesManager<T extends IndexedItem>({
         />
       </label>
       {selectedFilesPreview.length >= 1 && (
-        <div className="flex flex-col justify-center items-center">
-          <p>
-            Click any image to add extra details and save them one by one. You
-            can also save everything at once using the button below, but you'll
-            need to fill in any missing details later.
-          </p>
+        <div className={styles.additionalDetailsContainer}>
+          <p>{intl.addImagesInstructions}</p>
           <button
             type="button"
             onClick={() => setIsAddingInBulk(true)}
             className={styles.secondaryButton}
             disabled={isProcessing}
           >
-            {isProcessing ? "Saving selected Files..." : "Save all images"}
+            {isProcessing ? intl.savingSelectedFiles : intl.saveAllImages}
           </button>
         </div>
       )}
-      <div className="flex gap-5">
+      <div className={styles.previewImageContainer}>
         {selectedFilesPreview.map((selectedFilePreview, index) => (
-          <div
-            key={selectedFilePreview}
-            className="flex flex-col justify-center gap-3.5"
-          >
+          <div key={selectedFilePreview} className={styles.previewImageWrapper}>
             <img
               src={selectedFilePreview}
               alt="Selected profile preview"
@@ -410,11 +393,11 @@ function ImagesManager<T extends IndexedItem>({
                   ? () => {}
                   : openAddForm(selectedFilePreview, selectedFiles[index])
               }
-              className={`w-30 h-16 object-cover rounded-lg border border-slate-200 ${isProcessing ? "animate-pulse" : ""}`}
+              className={`${styles.previewImage} ${isProcessing ? "animate-pulse" : ""}`}
             />
             <button
               onClick={() => removeSelectedFile(index)}
-              className="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition ml-2"
+              className={styles.removeImageButton}
               title="Remove image"
             >
               🗑️
@@ -423,9 +406,9 @@ function ImagesManager<T extends IndexedItem>({
         ))}
       </div>
       {/* Image Sequence Grid */}
-      <div className="space-y-3">
-        <div className="flex justify-between">
-          <h3 className="text-sm font-medium text-slate-700">
+      <div className={styles.imageSequenceGrid}>
+        <div className={styles.imageGridContainer}>
+          <h3 className={styles.imageGridHeader}>
             Sequence Order ({items.length} images)
           </h3>
           {items.length > 1 && (
@@ -440,16 +423,11 @@ function ImagesManager<T extends IndexedItem>({
           )}
         </div>
         {items.length === 0 ? (
-          <p className="text-sm text-slate-400 italic text-center py-4">
-            No images added yet.
-          </p>
+          <p className={styles.emptyMessage}>{messages.emptyMessage}</p>
         ) : (
-          <div className="grid grid-cols-3 gap-4">
+          <div className={styles.imagesGrid}>
             {items.map(({ fieldArrayId, recordKey, ...img }, index) => (
-              <div
-                key={fieldArrayId}
-                className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl shadow-xs"
-              >
+              <div key={fieldArrayId} className={styles.imageItemWrapper}>
                 {Object.keys(emptyItem)
                   .filter((fieldName) => fieldName !== "order")
                   .map((fieldName) => (
@@ -466,30 +444,28 @@ function ImagesManager<T extends IndexedItem>({
                   {...register(`items.${index}.recordKey` as Path<EditorForm>)}
                 />
                 <div
-                  className={`${"flex items-center space-x-4"} ${index !== img.order && highlightedId === img.order ? styles.highlightedRow : ""}`}
+                  className={`${styles.imageItem} ${index !== img.order && highlightedId === img.order ? styles.highlightedItem : ""}`}
                   onClick={() => openEditForm(img as T, recordKey)}
                 >
-                  <span className="w-6 h-6 flex items-center justify-center bg-slate-200 text-slate-700 text-xs font-bold rounded-full">
-                    {index + 1}
-                  </span>
+                  <span className={styles.bullet}>{index + 1}</span>
                   <div>{formatSummary(img as T)}</div>
                 </div>
 
-                <div className="flex flex-col items-center">
-                  <div className="flex items-center pl-1">
+                <div className={styles.actionBarWrapper}>
+                  <div className={styles.orderArrowButtonsContainer}>
                     <button
                       onClick={() => moveItem(index, -1)}
                       disabled={index === 0}
-                      className="p-1.5 text-slate-500 hover:bg-slate-200 rounded-lg cursor-pointer disabled:opacity-30 transition disabled:cursor-not-allowed"
-                      title="Move Left"
+                      className={styles.orderArrowButton}
+                      title={intl.moveLeft}
                     >
                       ←
                     </button>
                     <button
                       onClick={() => moveItem(index, 1)}
                       disabled={index === items.length - 1}
-                      className="p-1.5 text-slate-500 hover:bg-slate-200 rounded-lg cursor-pointer disabled:opacity-30 transition disabled:cursor-not-allowed"
-                      title="Move Right"
+                      className={styles.orderArrowButton}
+                      title={intl.moveRight}
                     >
                       →
                     </button>
@@ -499,8 +475,8 @@ function ImagesManager<T extends IndexedItem>({
                       setIndexToRemove(index);
                       setIsDeleting(true);
                     }}
-                    className="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition ml-2 cursor-pointer"
-                    title="Delete"
+                    className={styles.removeImageButton}
+                    title={intl.delete}
                   >
                     🗑️
                   </button>
@@ -529,10 +505,8 @@ function ImagesManager<T extends IndexedItem>({
       )}
       {isAddingInBulk && (
         <ConfirmDialog
-          dialogTitle={"Adding multiple images"}
-          dialogBody={
-            "You are about to add one or more images at once. You will need to fill in any missing details later. Are you sure to proceed?"
-          }
+          dialogTitle={intl.addingImagesWithMissingDetails}
+          dialogBody={intl.addMoreOrOneImagesConfirmation}
           confirmAction={handleSaveInBulk}
           cancelAction={handleCancelConfirmation}
         />

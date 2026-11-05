@@ -30,7 +30,7 @@ const MyExhibitsImageCarousel = () => {
   };
 
   return (
-    <section>
+    <section className={myExhibitsStyle.exhibitsSection}>
       <div className={styles.carouselContainer}>
         <Carousel images={images} autoPlay={true} fitHeight={true} />
       </div>

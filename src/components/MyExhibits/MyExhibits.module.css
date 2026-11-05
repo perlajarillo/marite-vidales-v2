@@ -10,4 +10,7 @@
   .carouselImageCaption {
     @apply text-xs text-slate-700 font-medium truncate w-40;
   }
+  .exhibitsSection {
+    @apply mx-auto max-w-4xl space-y-6 rounded-lg bg-white;
+  }
 }

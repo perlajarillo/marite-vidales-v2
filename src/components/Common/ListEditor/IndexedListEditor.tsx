@@ -45,9 +45,10 @@ interface FormEditorProps<T extends IndexedItem> {
   updateItem: (key: string, item: T) => Promise<void>;
   saveOrder: (items: Record<string, T>) => Promise<void>;
   fetchData: () => void;
+  prependNewItem?: boolean;
 }
 
-function FormEditor<T extends IndexedItem>({
+function IndexedListEditor<T extends IndexedItem>({
   title,
   addLabel,
   editTitle,
@@ -60,6 +61,7 @@ function FormEditor<T extends IndexedItem>({
   updateItem,
   saveOrder,
   fetchData,
+  prependNewItem = false,
 }: FormEditorProps<T>) {
   const initialItems = Object.entries(savedItems)
     .map(([recordKey, item]) => ({ ...item, recordKey }) as EditorRow)
@@ -77,6 +79,7 @@ function FormEditor<T extends IndexedItem>({
   const {
     fields: items,
     append,
+    prepend,
     remove,
     swap,
     update,
@@ -143,13 +146,23 @@ function FormEditor<T extends IndexedItem>({
       if (isOrderDirty && !(await handleSaveOrder())) return;
       const createdKey = await createItem({ ...data, index: items.length });
       if (typeof createdKey !== "string") throw new Error("Missing item key");
-      append({
-        ...data,
-        index: items.length,
-        recordKey: createdKey,
-      } as EditorRow);
-      fetchData();
-      setMessage(messages.added);
+      if (prependNewItem) {
+        prepend({
+          ...data,
+          index: 0,
+          recordKey: createdKey,
+        });
+        handleSaveOrder(undefined, messages.added);
+      } else {
+        append({
+          ...data,
+          index: items.length,
+          recordKey: createdKey,
+        } as EditorRow);
+        fetchData();
+        setMessage(messages.added);
+      }
+
       closeForm();
     } catch {
       setError(messages.error);
@@ -159,6 +172,7 @@ function FormEditor<T extends IndexedItem>({
   const handleEdit = async (data: T) => {
     if (activeKey === null) return;
     try {
+      if (isOrderDirty && !(await handleSaveOrder())) return;
       await updateItem(activeKey, data);
       const itemIndex = items.findIndex((item) => item.recordKey === activeKey);
       if (itemIndex !== -1) {
@@ -246,7 +260,7 @@ function FormEditor<T extends IndexedItem>({
           {items.map(({ fieldArrayId, recordKey, ...item }, index) => (
             <article
               key={fieldArrayId}
-              className={`${styles.row} ${index !== item.index && highlightedId === item.index ? styles.highlightedRow : ""}`}
+              className={`${styles.row} ${index !== item.index && highlightedId === item.index ? styles.highlightedItem : ""}`}
             >
               {Object.keys(emptyItem)
                 .filter((fieldName) => fieldName !== "index")
@@ -263,15 +277,12 @@ function FormEditor<T extends IndexedItem>({
                 type="hidden"
                 {...register(`items.${index}.recordKey` as Path<EditorForm>)}
               />
-              <p className={styles.listItem}>
-                <span className="font-semibold">{index + 1}. </span>
-                {formatSummary(item as T)}
-              </p>
+              <p className={styles.listItem}>{formatSummary(item as T)}</p>
               <button
                 type="button"
                 disabled={index === 0}
                 onClick={() => moveItem(index, -1)}
-                className="cursor-pointer"
+                className={` ${index === 0 ? styles.upDownButtonDisabled : styles.upDownButton}`}
                 aria-label={`Move ${title} item up`}
               >
                 ▲
@@ -280,7 +291,7 @@ function FormEditor<T extends IndexedItem>({
                 type="button"
                 disabled={index === items.length - 1}
                 onClick={() => moveItem(index, 1)}
-                className="cursor-pointer"
+                className={`${index === items.length - 1 ? styles.upDownButtonDisabled : styles.upDownButton}`}
                 aria-label={`Move ${title} item down`}
               >
                 ▼
@@ -327,4 +338,4 @@ function FormEditor<T extends IndexedItem>({
   );
 }
 
-export default FormEditor;
+export default IndexedListEditor;

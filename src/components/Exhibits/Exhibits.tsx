@@ -6,16 +6,19 @@ import GroupedExhibits from "./GroupedExhibits";
 import styles from "./Exhibits.module.css";
 import ExhibitsList from "./ExhibitsList";
 import ExhibitsSkeleton from "./ExhibitsSkeleton";
-import type { Gallery } from "../../types/exhibits";
+import type { Gallery, GrantAward } from "../../types/exhibits";
 
 const Exhibits = () => {
   const { data, loading } = useExhibits();
   const carouselData = data?.carousel ? Object.values(data.carousel) : [];
-  const carouselImages = carouselData.map((picture) => ({
-    src: picture.url,
-    alt: picture.caption,
-    caption: picture.caption,
-  }));
+  const carouselImages = carouselData
+    .map((picture) => ({
+      src: picture.url,
+      alt: picture.caption,
+      caption: picture.caption,
+      order: picture.order,
+    }))
+    .sort((a, b) => a.order - b.order);
   const galleries = data?.galleries
     ? Object.values(data.galleries).slice(0).reverse()
     : [];
@@ -56,8 +59,10 @@ const Exhibits = () => {
               <ExhibitsList
                 title={intl.GrantsAndAwards}
                 items={topGrantsAndAwards}
-                emptyMessage={intl.noEducationAdded}
-                renderItem={(grant: string) => <p key={grant}>{grant}</p>}
+                emptyMessage={intl.noGrantsOrAwardsAdded}
+                renderItem={(grant: GrantAward) => (
+                  <p key={grant.index}>{grant.grantAward}</p>
+                )}
               />
 
               <GroupedExhibits

@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import styles from "./Exhibits.module.css";
-import type { Gallery } from "../../types/exhibits";
+import type { Gallery, GrantAward } from "../../types/exhibits";
 
 interface ExhibitsListProps<T> {
   title: string;
-  items: Gallery[] | string[] | undefined;
+  items: Gallery[] | string[] | GrantAward[] | undefined;
   emptyMessage: string;
   containerClassName?: string;
   renderItem: (item: T, key: string) => ReactNode;

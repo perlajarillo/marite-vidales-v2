@@ -16,7 +16,7 @@ export const GroupedExhibits: React.FC<GroupedExhibitsProps> = ({
         .sort((a, b) => Number(b[0]) - Number(a[0]))
         .map((entry) => {
           const year = entry[0];
-          const exhibits = entry[1];
+          const exhibits = entry[1].sort((a, b) => a.index - b.index);
           return (
             <div className={styles.groupedExhibitsList} key={year}>
               <h6>{year}</h6>

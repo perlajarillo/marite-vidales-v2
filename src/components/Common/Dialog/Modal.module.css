@@ -36,10 +36,10 @@
     @apply flex justify-end gap-2;
   }
   .dialogSecondaryButton {
-    @apply rounded border border-slate-300 px-4 py-2 text-sm cursor-pointer hover:bg-slate-50;
+    @apply rounded border border-slate-300 px-4 py-2 text-sm cursor-pointer hover:bg-slate-50 disabled:cursor-none disabled:opacity-50;
   }
   .dialogPrimaryButton {
-    @apply rounded bg-[#424242] px-4 py-2 text-sm font-semibold text-white cursor-pointer hover:bg-gray-500 transition-colors disabled:opacity-50;
+    @apply rounded bg-[#424242] px-4 py-2 text-sm font-semibold text-white cursor-pointer hover:bg-gray-500 transition-colors disabled:opacity-50 disabled:cursor-none;
   }
   .formDialog {
     @apply fixed inset-0 z-50 flex items-center justify-center p-4;

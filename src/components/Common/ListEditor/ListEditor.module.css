@@ -11,6 +11,7 @@
   .section {
     @apply mx-auto max-w-4xl space-y-6 rounded-lg bg-white p-6 shadow-sm;
   }
+
   .sectionHeader {
     @apply flex flex-wrap items-center justify-between gap-3;
   }
@@ -35,13 +36,79 @@
   .listItem {
     @apply min-w-0 flex-1 text-sm leading-6 text-slate-700;
   }
-  .highlightedRow {
-    @apply font-semibold animate-pulse [animation-iteration-count:1.5] bg-gray-50;
+  .highlightedItem {
+    @apply font-semibold animate-pulse bg-gray-50;
   }
   .editButton {
     @apply rounded border border-gray-700 px-3 py-2 text-sm hover:bg-slate-50 cursor-pointer;
   }
   .deleteButton {
     @apply rounded bg-red-700 px-3 py-2 text-sm text-white hover:bg-red-800 cursor-pointer;
+  }
+  .upDownButton {
+    @apply cursor-pointer;
+  }
+  .upDownButtonDisabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+  .dropZone {
+    @apply flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-xl p-6 cursor-pointer hover:bg-slate-100 transition;
+  }
+  .draggingOver {
+    @apply border-indigo-500 bg-indigo-50/80 scale-[0.99];
+  }
+  .notDraggingOver {
+    @apply border-slate-300 bg-slate-50 hover:bg-slate-100;
+  }
+  .allowedFiles {
+    @apply text-xs text-slate-400 mt-1;
+  }
+  .additionalDetailsContainer {
+    @apply flex flex-col justify-center items-center gap-3;
+  }
+  .previewImageContainer {
+    @apply flex gap-5;
+  }
+  .previewImageWrapper {
+    @apply flex flex-col justify-center gap-3.5;
+  }
+  .previewImage {
+    @apply w-30 h-16 object-cover rounded-lg border border-slate-200;
+  }
+  .removeImageButton {
+    @apply p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition ml-2 hover:cursor-pointer;
+  }
+  .imageSequenceGrid {
+    @apply space-y-3;
+  }
+  .imageGridContainer {
+    @apply flex justify-between;
+  }
+  .imageGridHeader {
+    @apply text-sm font-medium text-slate-700;
+  }
+  .emptyMessage {
+    @apply text-sm text-slate-400 italic text-center py-4;
+  }
+  .imagesGrid {
+    @apply grid grid-cols-3 gap-4;
+  }
+  .imageItemWrapper {
+    @apply flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl shadow-xs;
+  }
+  .imageItem {
+    @apply flex items-center space-x-4;
+  }
+  .bullet {
+    @apply w-6 h-6 flex items-center justify-center bg-slate-200 text-slate-700 text-xs font-bold rounded-full;
+  }
+  .actionBarWrapper {
+    @apply flex flex-col items-center;
+  }
+  .orderArrowButtonsContainer {
+    @apply flex items-center pl-1;
+  }
+  .orderArrowButton {
+    @apply p-1.5 text-slate-500 hover:bg-slate-200 rounded-lg cursor-pointer disabled:opacity-30 transition disabled:cursor-not-allowed;
   }
 }

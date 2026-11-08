@@ -1,5 +1,6 @@
-import { ref, get } from "firebase/database";
+import { ref, get, update, push, set } from "firebase/database";
 import { db } from "./firebase";
+import type { Review, Reviews, ReviewsData } from "../types/reviews";
 
 /**
  * Fetches the reviews data once from the Realtime Database.
@@ -23,4 +24,22 @@ export async function getReviews() {
     console.error("Error fetching reviews:", error);
     throw error;
   }
+}
+
+export async function saveReviews(reviews: Reviews): Promise<void> {
+  const updatedReviews: Partial<ReviewsData> = { reviews };
+
+  await update(ref(db, "reviews"), updatedReviews);
+}
+
+export async function createReviewItem(review: Review) {
+  const reviewsListRef = ref(db, "reviews/reviews");
+  const newRef = push(reviewsListRef);
+  await set(newRef, review);
+  return newRef.key;
+}
+
+export async function updateReviewItem(key: string, review: Review) {
+  const itemRef = ref(db, `reviews/reviews/${key}`);
+  await update(itemRef, review);
 }

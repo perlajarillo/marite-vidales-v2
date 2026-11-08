@@ -5,9 +5,11 @@ import mariteStudio from "../../assets/reviews-image.jpg";
 import style from "./Reviews.module.css";
 
 const Reviews = () => {
-  const { data, loading } = useReviews();
+  const { reviews: data, loading } = useReviews();
   const reviews = data
-    ? Object.entries(data).map(([id, review]) => ({ id, ...review }))
+    ? Object.entries(data)
+        .map(([id, review]) => ({ id, ...review }))
+        .sort((a, b) => a.index - b.index)
     : [];
   return (
     <div className={style.reviewContainer}>
@@ -29,6 +31,7 @@ const Reviews = () => {
                 quote={rev.quote}
                 author={rev.author}
                 role={rev.role}
+                index={rev.index}
               />
             ))}
           </div>

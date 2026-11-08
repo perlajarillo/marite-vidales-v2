@@ -1,6 +1,6 @@
 import { useAuth } from "../Login/AuthContext";
-import UnderConstruction from "../UnderConstruction/UnderConstruction";
 import Unauthorized from "../Unauthorized/Unauthorized";
+import ReviewsEditor from "./ReviewsEditor";
 
 const MyReviews = () => {
   const { user } = useAuth();
@@ -8,8 +8,8 @@ const MyReviews = () => {
     return <Unauthorized />;
   }
   return (
-    <div>
-      <UnderConstruction />
+    <div className="mt-6 md:pt-0 flex flex-col gap-5">
+      <ReviewsEditor />
     </div>
   );
 };

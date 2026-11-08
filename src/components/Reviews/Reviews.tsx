@@ -5,12 +5,13 @@ import mariteStudio from "../../assets/reviews-image.jpg";
 import style from "./Reviews.module.css";
 
 const Reviews = () => {
-  const { reviews: data, loading } = useReviews();
+  const { reviews: data, photo, loading } = useReviews();
   const reviews = data
     ? Object.entries(data)
         .map(([id, review]) => ({ id, ...review }))
         .sort((a, b) => a.index - b.index)
     : [];
+  const picture = photo?.pictureUrl ?? mariteStudio;
   return (
     <div className={style.reviewContainer}>
       {loading ? (
@@ -20,7 +21,7 @@ const Reviews = () => {
           <div className={style.reviewContent}>
             <div className={style.reviewImageWrapper}>
               <img
-                src={mariteStudio}
+                src={picture}
                 alt="Marité Vidales in her studio"
                 className={style.reviewImage}
               />

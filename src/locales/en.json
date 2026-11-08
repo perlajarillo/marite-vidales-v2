@@ -224,5 +224,9 @@
   "noReviewsAdded": "No review has been added yet!",
   "reviewsOrderUpdated": "Reviews order updated.",
   "deleteReviewsEntry": "Delete review entry?",
-  "changeReviewsOrder": "Change reviews order?"
+  "changeReviewsOrder": "Change reviews order?",
+  "noFileSelected": "No file selected. Please select a file to upload.",
+  "reviewsPhotoNotUpdated": "Reviews photo could not be updated. Please try again.",
+  "changeReviewsPhoto": "Change Reviews Photo",
+  "reviewsPhotoUpdated": "Reviews photo updated successfully."
 }
